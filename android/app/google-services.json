@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "937397677110",
+    "project_id": "bsccs-4a473",
+    "storage_bucket": "bsccs-4a473.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937397677110:android:977b97442d935c6088fc97",
+        "android_client_info": {
+          "package_name": "com.zee.bsccs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937397677110-pf4o17o6pp25m7ma68dtvcq1gcs8v709.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zee.bsccs",
+            "certificate_hash": "6b36c1c467c020fc979139b44fa12b57d78710b9"
+          }
+        },
+        {
+          "client_id": "937397677110-v1788lcfrim7rvsf3p0tdaprgnqcuslc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUtO8L8fTyMPuOYBLU7vQdKKsjfhmJZPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937397677110-v1788lcfrim7rvsf3p0tdaprgnqcuslc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
