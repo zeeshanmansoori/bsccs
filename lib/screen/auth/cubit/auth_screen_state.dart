@@ -6,7 +6,10 @@ class AuthScreenState extends Equatable {
   final bool progressBarVisible;
 
   @override
-  List<Object?> get props => [errorMsg];
+  List<Object?> get props => [
+        errorMsg,
+        progressBarVisible,
+      ];
 
   const AuthScreenState({
     this.errorMsg = "",

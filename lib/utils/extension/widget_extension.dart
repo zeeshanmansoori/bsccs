@@ -52,8 +52,13 @@ extension CustomExtensions on Widget {
         child: this,
       );
 
-  InkWell asButton({required Function onTap}) => InkWell(
+  InkWell asButton({
+    BorderRadius? borderRadius,
+    required Function onTap,
+  }) =>
+      InkWell(
         onTap: onTap as void Function()?,
+        borderRadius: borderRadius,
         child: this,
       );
 
@@ -97,12 +102,15 @@ extension CustomExtensions on Widget {
   ) {
     return Stack(
       alignment: Alignment.center,
+      fit: StackFit.expand,
       children: [
         this,
-        const CircularProgressIndicator().withBlocBuilder<B, S>(
-          buildWhen,
-          isVisible: isProgressBarVisible,
-        )
+        const CircularProgressIndicator()
+            .withBlocBuilder<B, S>(
+              buildWhen,
+              isVisible: isProgressBarVisible,
+            )
+            .wrapCenter()
       ],
     );
   }
@@ -114,7 +122,8 @@ extension CustomExtensions on Widget {
     return BlocBuilder<B, S>(
       buildWhen: buildWhen,
       builder: (context, state) {
-        if (isVisible != null && !isVisible.call(state)) {
+        var visible = isVisible?.call(state) ?? false;
+        if (!visible) {
           return Container();
         }
         return this;

@@ -1,5 +1,6 @@
 import 'package:bsccs/firebase_options.dart';
 import 'package:bsccs/screen/authGate/auth_gate.dart';
+import 'package:bsccs/utils/custom_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'Inter',
+        primarySwatch: CustomColors.primaryColor,
+        iconTheme: const IconThemeData(color: CustomColors.primaryColor),
       ),
       home: const AuthGate(),
     );

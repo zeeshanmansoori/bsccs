@@ -13,6 +13,7 @@ class AuthScreenCubit extends Cubit<AuthScreenState> {
 
   void login() async {
     if (state.progressBarVisible) return;
+    emit(state.copyWith(progressBarVisible: true));
     authUseCase.signInWithGoogle().then(
       (value) {
         emit(state.copyWith(
@@ -27,5 +28,9 @@ class AuthScreenCubit extends Cubit<AuthScreenState> {
         ));
       },
     );
+  }
+
+  void clearMsg() {
+    emit(state.copyWith(errorMsg: ""));
   }
 }
