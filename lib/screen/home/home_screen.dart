@@ -1,12 +1,12 @@
 import 'package:bsccs/models/home_action.dart';
 import 'package:bsccs/models/home_recent.dart';
+import 'package:bsccs/screen/books/books_screen.dart';
 import 'package:bsccs/screen/home/widgets/home_action_widget.dart';
 import 'package:bsccs/screen/home/widgets/home_recent_widget.dart';
 import 'package:bsccs/utils/bsc_cs_app_icons.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,30 +17,36 @@ class HomeScreen extends StatelessWidget {
       const HomeAction(
         iconData: BscCsApp.books,
         title: "Books",
+        destinationName: BooksScreen.routeName,
       ),
       const HomeAction(
         iconData: BscCsApp.syllabus,
         title: "Syllabus",
+        destinationName: BooksScreen.routeName,
       ),
       const HomeAction(
         iconData: BscCsApp.questions,
         title: "Questions",
+        destinationName: BooksScreen.routeName,
       ),
       const HomeAction(
         iconData: BscCsApp.notes,
         title: "Notes",
+        destinationName: BooksScreen.routeName,
       ),
       const HomeAction(
         iconData: BscCsApp.practicals,
         title: "Practicals",
+        destinationName: BooksScreen.routeName,
       ),
       const HomeAction(
         iconData: BscCsApp.freeCourses,
         title: "Free Courses",
+        destinationName: BooksScreen.routeName,
       ),
     ];
 
-    var recents = [
+    var recent = [
       const HomeRecent(
           title: "Concert Mathematics 3rd Edition by mac leran special disc",
           description: "By James Bond"),
@@ -96,6 +102,10 @@ class HomeScreen extends StatelessWidget {
                 .map(
                   (action) => HomeActionWidget(
                     homeAction: action,
+                    onClicked: () => Navigator.pushNamed(
+                      context,
+                      action.destinationName,
+                    ),
                   ),
                 )
                 .toList(),
@@ -119,7 +129,7 @@ class HomeScreen extends StatelessWidget {
               )
             ],
           ).paddingWithSymmetry(horizontal: 20),
-          ...recents
+          ...recent
               .map((e) => HomeRecentWidget(homeRecent: e)
                   .paddingWithSymmetry(horizontal: 15))
               .toList()

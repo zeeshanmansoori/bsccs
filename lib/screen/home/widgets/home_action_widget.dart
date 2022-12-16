@@ -7,8 +7,11 @@ class HomeActionWidget extends StatelessWidget {
   const HomeActionWidget({
     Key? key,
     required this.homeAction,
+    required this.onClicked,
   }) : super(key: key);
+
   final HomeAction homeAction;
+  final Function onClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class HomeActionWidget extends StatelessWidget {
           ),
         ],
       ).asButton(
-        onTap: () {},
+        onTap: onClicked,
         borderRadius: cardBorderRadius,
       ),
     );
