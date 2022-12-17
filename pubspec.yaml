@@ -47,6 +47,9 @@ dependencies:
   cs_repository:
     path: packages/cs_repository
 
+  shared_repository:
+    path: packages/shared_repository
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

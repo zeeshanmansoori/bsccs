@@ -1,4 +1,5 @@
 import 'package:bsccs/models/home_action.dart';
+import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class HomeActionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cardBorderRadius = BorderRadius.circular(15);
+    var cardBorderRadius = BorderRadius.circular(Constants.cardRadius);
     return Card(
       color: CustomColors.actionColor,
       elevation: .1,

@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(create: (ctx) => csRepository),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner:false,
         title: 'Flutter Demo',
         theme: ThemeData(
           fontFamily: 'Inter',
