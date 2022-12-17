@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bsccs/cubit/books_screen/book_screen_cubit.dart';
 import 'package:bsccs/screen/books/book_tab_screen.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
@@ -40,7 +38,7 @@ class BooksScreen extends StatelessWidget {
                   ).toList(),
                 ),
                 title: const Text(
-                  'Tabs Demo',
+                  'Books',
                   style: TextStyle(color: Colors.black),
                 ),
                 backgroundColor: Colors.transparent,

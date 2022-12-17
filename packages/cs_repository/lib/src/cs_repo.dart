@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_repository/shared_repo.dart';
 
@@ -25,7 +23,6 @@ class CsRepository {
     int semester,
     String courseName,
   ) async {
-    log("zeehan $courseName _collectionBook $_collectionBook semester = sem$semester");
     var result = await _db
         .collection(courseName)
         .doc("sem$semester")

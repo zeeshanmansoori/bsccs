@@ -1,7 +1,7 @@
 part of 'book_tab_cubit.dart';
 
 class BookTabState extends Equatable {
-  final List<BookPageData> books;
+  final List<dynamic> books;
   final bool isLoading;
 
   @override
@@ -16,7 +16,7 @@ class BookTabState extends Equatable {
   });
 
   BookTabState copyWith({
-    List<BookPageData>? books,
+    List<dynamic>? books,
     bool? isLoading,
   }) {
     return BookTabState(

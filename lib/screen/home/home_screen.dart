@@ -3,6 +3,7 @@ import 'package:bsccs/models/home_recent.dart';
 import 'package:bsccs/screen/books/books_screen.dart';
 import 'package:bsccs/screen/home/widgets/home_action_widget.dart';
 import 'package:bsccs/screen/home/widgets/home_recent_widget.dart';
+import 'package:bsccs/screen/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/bsc_cs_app_icons.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
       const HomeAction(
         iconData: BscCsApp.syllabus,
         title: "Syllabus",
-        destinationName: BooksScreen.routeName,
+        destinationName: SyllabusScreen.routeName,
       ),
       const HomeAction(
         iconData: BscCsApp.questions,

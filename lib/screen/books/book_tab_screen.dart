@@ -37,8 +37,12 @@ class BookTabScreen extends StatelessWidget {
             return const Text("empty screen").wrapCenter();
           }
           return GridView.count(
-            padding:
-                const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
+            padding: const EdgeInsets.only(
+              top: 20,
+              left: 10,
+              right: 10,
+              bottom: 20,
+            ),
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
             childAspectRatio: .7,
@@ -50,7 +54,7 @@ class BookTabScreen extends StatelessWidget {
     );
   }
 
-  Widget mapBookPageDataToWidget(BookPageData data) {
+  Widget mapBookPageDataToWidget(dynamic data) {
     if (data is CourseBook) {
       return BookTabItemWidget(
         book: data,

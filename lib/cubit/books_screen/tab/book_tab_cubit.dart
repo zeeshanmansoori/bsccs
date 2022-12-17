@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
+import 'package:bsccs/models/google_add.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_repository/shared_repo.dart';
@@ -33,14 +33,14 @@ class BookTabCubit extends Cubit<BookTabState> {
   }
 
   void _dummyBooks() {
-    List<BookPageData> list = List.generate(
+    List<dynamic> list = List.generate(
       5,
       (index) => CourseBook(
         link: "asd",
         imageLink:
             "https://mdpi-res.com/bookfiles/book/5003/The_Convergence_of_Human_and_Artificial_Intelligence_on_Clinical_Care__Part_I.jpg?v1668436724",
-        name: "Aritifical Intelligence",
-      ) as BookPageData,
+        name: "Artificial Intelligence",
+      ) as dynamic,
     ).toList();
 
     list.add(GoogleAdd());

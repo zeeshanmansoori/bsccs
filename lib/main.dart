@@ -1,6 +1,7 @@
 import 'package:bsccs/firebase_options.dart';
 import 'package:bsccs/screen/authGate/auth_gate.dart';
 import 'package:bsccs/screen/books/books_screen.dart';
+import 'package:bsccs/screen/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(create: (ctx) => csRepository),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner:false,
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           fontFamily: 'Inter',
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         home: const AuthGate(),
         routes: {
           BooksScreen.routeName: (ctx) => const BooksScreen(),
+          SyllabusScreen.routeName: (ctx) => const SyllabusScreen(),
         },
       ),
     );
