@@ -1,5 +1,5 @@
-name: cs_repository
-description: Dart package which manages the cs firestore.
+name: cs_shared_preferences
+description: This package manages all local data using shared_preferences.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0
 
@@ -8,16 +8,9 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  cloud_firestore: ^4.2.0
+  shared_preferences: ^2.0.15
   shared_repository:
     path: ../shared_repository
-
-  cs_shared_preferences:
-    path: ../cs_shared_preferences
-#
-#  fuel_abc_shared_preferences:
-#      path: ../fuel_abc_shared_preferences
-
 
 dev_dependencies: 
   flutter_lints: ^2.0.1

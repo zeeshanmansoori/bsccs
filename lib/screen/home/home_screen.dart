@@ -47,17 +47,18 @@ class HomeScreen extends StatelessWidget {
       ),
     ];
 
-    var recent = [
-      const HomeRecent(
-          title: "Concert Mathematics 3rd Edition by mac leran special disc",
-          description: "By James Bond"),
-      const HomeRecent(
-          title: "Concert Mathematics", description: "By James Bond"),
-      const HomeRecent(
-          title: "Concert Mathematics", description: "By James Bond"),
-      const HomeRecent(
-          title: "Concert Mathematics", description: "By James Bond"),
-    ];
+    var recent =[];
+    // [
+    //   const HomeRecent(
+    //       title: "Concert Mathematics 3rd Edition by mac leran special disc",
+    //       description: "By James Bond"),
+    //   const HomeRecent(
+    //       title: "Concert Mathematics", description: "By James Bond"),
+    //   const HomeRecent(
+    //       title: "Concert Mathematics", description: "By James Bond"),
+    //   const HomeRecent(
+    //       title: "Concert Mathematics", description: "By James Bond"),
+    // ];
 
     var userName = "Zeeshan";
     return Scaffold(
@@ -130,7 +131,9 @@ class HomeScreen extends StatelessWidget {
               )
             ],
           ).paddingWithSymmetry(horizontal: 20),
-          ...recent
+
+          if(recent.isEmpty) const Text("No recent found").wrapCenter().paddingForOnly(top: 100),
+          if(recent.isNotEmpty) ...recent
               .map((e) => HomeRecentWidget(homeRecent: e)
                   .paddingWithSymmetry(horizontal: 15))
               .toList()

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cs_shared_preferences/cs_shared_preferences.dart';
 import 'package:shared_repository/shared_repo.dart';
 
 class CsRepository {
@@ -6,6 +7,18 @@ class CsRepository {
   final String _collectionInfoName = "info";
   final String _collectionBook = "books";
   final String _csInfoDoc = "computer_science";
+  final String _userCollection = "users";
+
+  void saveUserInfo(String userId, String name, String image, String email) {
+    var userInfo = UserInfo(
+      userId: userId,
+      userName: name,
+      image: image,
+      email: email,
+    );
+    CsSharedPreferences.setUserInfo(userInfo);
+    _db.collection(_userCollection).doc(userId).set(userInfo.toFireStore());
+  }
 
   Future<CourseInfo?> getCourseInfo() async {
     var result = await _db
