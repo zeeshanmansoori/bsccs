@@ -10,7 +10,7 @@ class CsRepository {
   final String _userCollection = "users";
 
   void saveUserInfo(String userId, String name, String image, String email) {
-    var userInfo = UserInfo(
+    var userInfo = UserDetails(
       userId: userId,
       userName: name,
       image: image,
@@ -18,6 +18,10 @@ class CsRepository {
     );
     CsSharedPreferences.setUserInfo(userInfo);
     _db.collection(_userCollection).doc(userId).set(userInfo.toFireStore());
+  }
+
+  Future<UserDetails> getUserInfo(){
+    return CsSharedPreferences.getUserInfo();
   }
 
   Future<CourseInfo?> getCourseInfo() async {

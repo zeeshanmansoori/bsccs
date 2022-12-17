@@ -8,7 +8,7 @@ class CsSharedPreferences {
     _pref ??= await SharedPreferences.getInstance();
   }
 
-  static Future setUserInfo(UserInfo? userInfo) async {
+  static Future setUserInfo(UserDetails? userInfo) async {
     await _init();
     return await Future.wait([
       _pref!.setString(_userName, userInfo?.userName ?? ""),
@@ -18,9 +18,9 @@ class CsSharedPreferences {
     ]);
   }
 
-  static Future<UserInfo> getUserInfo() async {
+  static Future<UserDetails> getUserInfo() async {
     await _init();
-    return UserInfo(
+    return UserDetails(
       userName: _pref!.getString(_userName) ?? "",
       image: _pref!.getString(_userProfilePic) ?? "",
       email: _pref!.getString(_userEmail) ?? "",

@@ -1,10 +1,10 @@
-class UserInfo{
+class UserDetails{
   final String userName;
   final String image;
   final String email;
   final String userId;
 
-  const UserInfo({
+  const UserDetails({
     required this.userName,
     required this.image,
     required this.email,

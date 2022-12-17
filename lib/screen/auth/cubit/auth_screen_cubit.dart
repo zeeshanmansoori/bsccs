@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bsccs/use_case/auth_use_case.dart';
 import 'package:cs_repository/src/cs_repo.dart';
-import 'package:cs_shared_preferences/cs_shared_preferences.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shared_repository/shared_repo.dart';
 
 part 'auth_screen_state.dart';
 

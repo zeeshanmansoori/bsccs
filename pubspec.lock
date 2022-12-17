@@ -458,7 +458,7 @@ packages:
     source: hosted
     version: "2.1.2"
   shared_repository:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/shared_repository"
       relative: true
