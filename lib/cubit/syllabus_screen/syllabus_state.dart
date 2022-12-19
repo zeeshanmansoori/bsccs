@@ -11,7 +11,7 @@ class SyllabusState extends Equatable {
       ];
 
   const SyllabusState({
-    this.isLoading = false,
+    this.isLoading = true,
     this.syllabus = const [],
   });
 

@@ -6,6 +6,7 @@ class CsRepository {
   final _db = FirebaseFirestore.instance;
   final String _collectionInfoName = "info";
   final String _collectionBook = "books";
+  final String _collectionQuestionPapers = "question_papers";
   final String _csInfoDoc = "computer_science";
   final String _userCollection = "users";
 
@@ -20,7 +21,7 @@ class CsRepository {
     _db.collection(_userCollection).doc(userId).set(userInfo.toFireStore());
   }
 
-  Future<UserDetails> getUserInfo(){
+  Future<UserDetails> getUserInfo() {
     return CsSharedPreferences.getUserInfo();
   }
 
@@ -48,6 +49,22 @@ class CsRepository {
           fromFirestore: CourseBook.fromFirestore,
           toFirestore: (CourseBook info, _) => info.toFirestore(),
         )
+        .get();
+    return result.docs.map((e) => e.data()).toList();
+  }
+
+  Future<List<QuestionPaper>> getQuestionPapers(
+    int semester,
+    String courseName,
+  ) async{
+    var result = await _db
+        .collection(courseName)
+        .doc("sem$semester")
+        .collection(_collectionQuestionPapers)
+        .withConverter(
+      fromFirestore: QuestionPaper.fromFirestore,
+      toFirestore: (QuestionPaper info, _) => info.toFirestore(),
+    )
         .get();
     return result.docs.map((e) => e.data()).toList();
   }

@@ -1,27 +1,25 @@
-import 'package:bsccs/cubit/books_screen/book_screen_cubit.dart';
-import 'package:bsccs/screen/books/book_tab_screen.dart';
+import 'package:bsccs/cubit/questions/questions_cubit.dart';
+import 'package:bsccs/screen/questions/question_tab_screen.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_repository/shared_repo.dart';
 
-class BooksScreen extends StatelessWidget {
+class QuestionsScreen extends StatelessWidget {
+  static const String routeName = "/questions_screen";
 
-  static const String routeName = "/books_screen";
-
-  const BooksScreen({Key? key}) : super(key: key);
+  const QuestionsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BooksScreenCubit(context.read<CsRepository>()),
-      child: BlocBuilder<BooksScreenCubit, BooksScreenState>(
-        buildWhen: (p, c) => p.apiStatus != c.apiStatus,
+      create: (context) => QuestionsCubit(context.read<CsRepository>()),
+      child: BlocBuilder<QuestionsCubit, QuestionsState>(
+        buildWhen: (p, c) => p.isLoading != c.isLoading,
         builder: (context, state) {
           var tabCount = state.semesters ?? 0;
-          var isLoading = state.apiStatus;
-
+          var isLoading = state.isLoading;
           return DefaultTabController(
             initialIndex: state.defaultSem - 1,
             length: tabCount,
@@ -33,14 +31,14 @@ class BooksScreen extends StatelessWidget {
                   isScrollable: true,
                   tabs: List.generate(
                     tabCount,
-                    (index) => Text(
+                        (index) => Text(
                       "Semester ${index + 1}",
                       style: const TextStyle(color: Colors.black),
                     ).paddingWithSymmetry(vertical: 10),
                   ).toList(),
                 ),
                 title: const Text(
-                  'Books',
+                  'Question Papers',
                   style: TextStyle(color: Colors.black),
                 ),
                 backgroundColor: Colors.transparent,
@@ -49,14 +47,15 @@ class BooksScreen extends StatelessWidget {
               body: isLoading
                   ? const CircularProgressIndicator().wrapCenter()
                   : TabBarView(
-                      children: List.generate(
-                        tabCount,
-                        (index) => BookTabScreen(
-                          tabIndex:index,
-                          onClicked: (book) => navigateToPdf(context, book),
-                        ),
-                      ).toList(),
-                    ),
+                children: List.generate(
+                  tabCount,
+                      (index) => QuestionTabScreen(
+                    semester: index + 1,
+                    courseName: state.courseName!,
+                    onClicked: (book) => navigateToPdf(context, book),
+                  ),
+                ).toList(),
+              ),
             ),
           );
         },
@@ -64,7 +63,7 @@ class BooksScreen extends StatelessWidget {
     );
   }
 
-  void navigateToPdf(BuildContext context, CourseBook book) {
+  void navigateToPdf(BuildContext context, QuestionPaper book) {
     Navigator.pushNamed(context, routeName);
   }
 }

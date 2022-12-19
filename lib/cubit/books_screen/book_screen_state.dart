@@ -5,8 +5,9 @@ class BooksScreenState extends Equatable {
   final bool apiStatus;
   final String message;
   final int defaultSem;
-  final List<BooksTabData> tabsData;
+  final List<ListWrapper<CourseBook>> tabBooks;
   final String? courseName;
+  final bool isBookLoading;
 
   @override
   List<Object?> get props => [
@@ -14,8 +15,9 @@ class BooksScreenState extends Equatable {
         apiStatus,
         message,
         defaultSem,
-        tabsData,
+        tabBooks,
         courseName,
+        isBookLoading,
       ];
 
   const BooksScreenState({
@@ -23,8 +25,9 @@ class BooksScreenState extends Equatable {
     this.apiStatus = true,
     this.message = "",
     this.defaultSem = 2,
-    this.tabsData = const [],
+    this.tabBooks = const [],
     this.courseName,
+    this.isBookLoading = true,
   });
 
   BooksScreenState copyWith({
@@ -32,16 +35,18 @@ class BooksScreenState extends Equatable {
     bool? apiStatus,
     String? message,
     int? defaultSem,
-    List<BooksTabData>? tabsData,
+    List<ListWrapper<CourseBook>>? tabBooks,
     String? courseName,
+    bool? isBookLoading,
   }) {
     return BooksScreenState(
       semesters: semesters ?? this.semesters,
       apiStatus: apiStatus ?? this.apiStatus,
       message: message ?? this.message,
       defaultSem: defaultSem ?? this.defaultSem,
-      tabsData: tabsData ?? this.tabsData,
+      tabBooks: tabBooks ?? this.tabBooks,
       courseName: courseName ?? this.courseName,
+      isBookLoading: isBookLoading ?? this.isBookLoading,
     );
   }
 }

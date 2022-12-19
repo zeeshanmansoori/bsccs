@@ -1,6 +1,7 @@
 import 'package:bsccs/firebase_options.dart';
 import 'package:bsccs/screen/authGate/auth_gate.dart';
 import 'package:bsccs/screen/books/books_screen.dart';
+import 'package:bsccs/screen/questions/questions_screen.dart';
 import 'package:bsccs/screen/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:cs_repository/cs_repo.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         routes: {
           BooksScreen.routeName: (ctx) => const BooksScreen(),
           SyllabusScreen.routeName: (ctx) => const SyllabusScreen(),
+          QuestionsScreen.routeName: (ctx) => const QuestionsScreen(),
         },
       ),
     );
