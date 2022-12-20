@@ -1,8 +1,8 @@
 import 'package:bsccs/cubit/questions/questions_cubit.dart';
 import 'package:bsccs/custom_widgets/ad_widget.dart';
 import 'package:bsccs/screen/questions/widget/question_paper_tab_item_widget.dart';
+import 'package:bsccs/utils/extension/extension.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
-import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_repository/shared_repo.dart';
@@ -10,50 +10,45 @@ import 'package:shared_repository/shared_repo.dart';
 class QuestionTabScreen extends StatelessWidget {
   const QuestionTabScreen({
     Key? key,
-    required this.semester,
-    required this.courseName,
+    required this.tabIndex,
     required this.onClicked,
   }) : super(key: key);
 
-  final int semester;
-  final String courseName;
-  final Function(QuestionPaper book) onClicked;
+  final int tabIndex;
+  final Function(BookQuestions book) onClicked;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => QuestionsCubit(
-        context.read<CsRepository>(),
-      ),
-      child: BlocBuilder<QuestionsCubit, QuestionsState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const CircularProgressIndicator().wrapCenter();
-          }
-          var items = [];
-          if (items.isEmpty) {
-            return const Text("empty screen").wrapCenter();
-          }
-          return GridView.count(
-            padding: const EdgeInsets.only(
-              top: 20,
-              left: 10,
-              right: 10,
-              bottom: 20,
-            ),
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            childAspectRatio: .7,
-            crossAxisCount: 2,
-            children: items.map((e) => mapBookPageDataToWidget(e)).toList(),
-          );
-        },
-      ),
+    return BlocBuilder<QuestionsCubit, QuestionsState>(
+      builder: (context, state) {
+        if (state.isPaperLoading) {
+          return const CircularProgressIndicator().wrapCenter();
+        }
+        var tabData = state.tabsData.getOrNull(tabIndex);
+        var items = tabData == null?[]:tabData.items;
+        if (items.isEmpty) {
+          return const Text("Empty screen").wrapCenter();
+        }
+        return ListView.builder(
+          itemBuilder: (context, index) =>
+              mapBookPageDataToWidget(items[index]),
+          itemCount: items.length,
+          padding: const EdgeInsets.only(
+            top: 20,
+            left: 10,
+            right: 10,
+            bottom: 20,
+          ),
+
+        );
+
+
+      },
     );
   }
 
   Widget mapBookPageDataToWidget(dynamic data) {
-    if (data is QuestionPaper) {
+    if (data is BookQuestions) {
       return QuestionPaperTabItemWidget(
         questionPaper: data,
         onClicked: () => onClicked.call(data),

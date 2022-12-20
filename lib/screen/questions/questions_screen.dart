@@ -31,7 +31,7 @@ class QuestionsScreen extends StatelessWidget {
                   isScrollable: true,
                   tabs: List.generate(
                     tabCount,
-                        (index) => Text(
+                    (index) => Text(
                       "Semester ${index + 1}",
                       style: const TextStyle(color: Colors.black),
                     ).paddingWithSymmetry(vertical: 10),
@@ -47,15 +47,14 @@ class QuestionsScreen extends StatelessWidget {
               body: isLoading
                   ? const CircularProgressIndicator().wrapCenter()
                   : TabBarView(
-                children: List.generate(
-                  tabCount,
-                      (index) => QuestionTabScreen(
-                    semester: index + 1,
-                    courseName: state.courseName!,
-                    onClicked: (book) => navigateToPdf(context, book),
-                  ),
-                ).toList(),
-              ),
+                      children: List.generate(
+                        tabCount,
+                        (index) => QuestionTabScreen(
+                          tabIndex: index,
+                          onClicked: (book) => navigateToPdf(context, book),
+                        ),
+                      ).toList(),
+                    ),
             ),
           );
         },
@@ -63,7 +62,7 @@ class QuestionsScreen extends StatelessWidget {
     );
   }
 
-  void navigateToPdf(BuildContext context, QuestionPaper book) {
+  void navigateToPdf(BuildContext context, BookQuestions book) {
     Navigator.pushNamed(context, routeName);
   }
 }

@@ -10,7 +10,12 @@ class CsRepository {
   final String _csInfoDoc = "computer_science";
   final String _userCollection = "users";
 
-  void saveUserInfo(String userId, String name, String image, String email) {
+  void saveUserInfo(
+    String userId,
+    String name,
+    String image,
+    String email,
+  ) {
     var userInfo = UserDetails(
       userId: userId,
       userName: name,
@@ -53,18 +58,18 @@ class CsRepository {
     return result.docs.map((e) => e.data()).toList();
   }
 
-  Future<List<QuestionPaper>> getQuestionPapers(
+  Future<List<BookQuestions>> getQuestionPapers(
     int semester,
     String courseName,
-  ) async{
+  ) async {
     var result = await _db
         .collection(courseName)
         .doc("sem$semester")
         .collection(_collectionQuestionPapers)
         .withConverter(
-      fromFirestore: QuestionPaper.fromFirestore,
-      toFirestore: (QuestionPaper info, _) => info.toFirestore(),
-    )
+          fromFirestore: BookQuestions.fromFirestore,
+          toFirestore: (BookQuestions info, _) => info.toFirestore(),
+        )
         .get();
     return result.docs.map((e) => e.data()).toList();
   }
