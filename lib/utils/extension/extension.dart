@@ -49,3 +49,9 @@ extension CustomEnum on Enum {
     return result;
   }
 }
+
+extension ObjectExtension on Object {
+  T? tryCast<T>() {
+    return this is T ? (this as T) : null;
+  }
+}

@@ -1,52 +1,47 @@
-part of 'book_screen_cubit.dart';
+part of 'auth_gate_cubit.dart';
 
-class BooksScreenState extends Equatable {
+class AuthGateState extends Equatable {
+  final bool? isLoggedIn;
   final int? semesters;
   final bool apiStatus;
   final String message;
   final int defaultSem;
-  final List<ListWrapper<CourseBook>> tabBooks;
   final String? courseName;
-  final bool isBookLoading;
 
   @override
   List<Object?> get props => [
+        isLoggedIn,
         semesters,
         apiStatus,
         message,
         defaultSem,
-        tabBooks,
         courseName,
-        isBookLoading,
       ];
 
-  const BooksScreenState({
+  const AuthGateState({
+    this.isLoggedIn,
     this.semesters,
     this.apiStatus = true,
     this.message = "",
-    this.defaultSem = 2,
-    this.tabBooks = const [],
+    this.defaultSem = 1,
     this.courseName,
-    this.isBookLoading = true,
   });
 
-  BooksScreenState copyWith({
+  AuthGateState copyWith({
+    bool? isLoggedIn,
     int? semesters,
     bool? apiStatus,
     String? message,
     int? defaultSem,
-    List<ListWrapper<CourseBook>>? tabBooks,
     String? courseName,
-    bool? isBookLoading,
   }) {
-    return BooksScreenState(
+    return AuthGateState(
+      isLoggedIn: isLoggedIn ?? this.isLoggedIn,
       semesters: semesters ?? this.semesters,
       apiStatus: apiStatus ?? this.apiStatus,
       message: message ?? this.message,
       defaultSem: defaultSem ?? this.defaultSem,
-      tabBooks: tabBooks ?? this.tabBooks,
       courseName: courseName ?? this.courseName,
-      isBookLoading: isBookLoading ?? this.isBookLoading,
     );
   }
 }

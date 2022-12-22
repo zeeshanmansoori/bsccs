@@ -1,4 +1,5 @@
-import 'package:bsccs/screen/auth/cubit/auth_screen_cubit.dart';
+
+import 'package:bsccs/cubit/cubit/auth_screen_cubit.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/utils.dart';
 import 'package:bsccs/utils/widget_utils.dart';

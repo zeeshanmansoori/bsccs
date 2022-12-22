@@ -1,48 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class BookQuestions {
-  final List<QuestionPaper> links;
+class QuestionPaper {
+  final String image;
   final String subjectName;
+  final String subjectId;
+  final String timeStamp;
+  final String link;
 
-  BookQuestions({
-    required this.links,
+  const QuestionPaper({
+    required this.image,
     required this.subjectName,
+    required this.subjectId,
+    required this.timeStamp,
+    required this.link,
   });
 
-  factory BookQuestions.fromFirestore(
+  Map<String, dynamic> toMap() {
+    return {
+      'image': image,
+      'subjectName': subjectName,
+      'subjectId': subjectId,
+      'timeStamp': timeStamp,
+      'link': link,
+    };
+  }
+
+
+  factory QuestionPaper.fromMap(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
-    final json = snapshot.data()!;
-    var links = List.from(json["links"]).map((e) => QuestionPaper.fromJson(e)).toList();
-    var name = json["name"];
-
-    return BookQuestions(
-      links: links,
-      subjectName: name,
+    final map = snapshot.data()!;
+    return QuestionPaper(
+      image: map['image'] as String,
+      subjectName: map['subjectName'] as String,
+      subjectId: map['subjectId'] as String,
+      timeStamp: map['timeStamp'] as String,
+      link: map['link'] as String,
     );
-  }
-
-  Map<String, dynamic> toFirestore() {
-    return {
-      "links": links,
-      "name": subjectName,
-    };
-  }
-}
-
-class QuestionPaper {
-  final String link;
-  final String timeStamp;
-
-  const QuestionPaper({
-    required this.link,
-    required this.timeStamp,
-  });
-
-  factory QuestionPaper.fromJson(Map<dynamic, dynamic> json) {
-    var link = json["link"];
-    var timeStamp = json["time_stamp"];
-    return QuestionPaper(link: link, timeStamp: timeStamp);
   }
 }

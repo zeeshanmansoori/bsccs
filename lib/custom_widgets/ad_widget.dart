@@ -12,8 +12,12 @@ class AdWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var cardBorderRadius = BorderRadius.circular(radius);
     return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color: Colors.red.withOpacity(.5), borderRadius: cardBorderRadius),
+        color: Colors.red.withOpacity(.5),
+        borderRadius: cardBorderRadius,
+      ),
     );
   }
 }

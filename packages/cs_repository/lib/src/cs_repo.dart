@@ -9,6 +9,7 @@ class CsRepository {
   final String _collectionQuestionPapers = "question_papers";
   final String _csInfoDoc = "computer_science";
   final String _userCollection = "users";
+  final String _syllabusDocName = "syllabus";
 
   void saveUserInfo(
     String userId,
@@ -58,7 +59,7 @@ class CsRepository {
     return result.docs.map((e) => e.data()).toList();
   }
 
-  Future<List<BookQuestions>> getQuestionPapers(
+  Future<List<QuestionPaper>> getQuestionPapers(
     int semester,
     String courseName,
   ) async {
@@ -67,10 +68,29 @@ class CsRepository {
         .doc("sem$semester")
         .collection(_collectionQuestionPapers)
         .withConverter(
-          fromFirestore: BookQuestions.fromFirestore,
-          toFirestore: (BookQuestions info, _) => info.toFirestore(),
+          fromFirestore: QuestionPaper.fromMap,
+          toFirestore: (QuestionPaper info, _) => info.toMap(),
         )
         .get();
     return result.docs.map((e) => e.data()).toList();
   }
+
+  Future<List<CourseSyllabus>> getSyllabus(
+    String courseName,
+  ) async {
+    var result = await _db
+        .collection(courseName)
+        .doc(_syllabusDocName)
+        .collection(_syllabusDocName)
+        .withConverter(
+          fromFirestore: CourseSyllabus.fromFirestore,
+          toFirestore: (CourseSyllabus info, _) => info.toFirestore(),
+        )
+        .get();
+    return result.docs.map((e) => e.data()).toList();
+  }
+}
+
+String getPdfLink(String id) {
+  return "https://drive.google.com/u/0/uc?id=$id&export=download";
 }

@@ -1,5 +1,5 @@
-import 'package:bsccs/screen/auth/auth_screen.dart';
-import 'package:bsccs/screen/home/home_screen.dart';
+import 'package:bsccs/screens/auth/auth_screen.dart';
+import 'package:bsccs/screens/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

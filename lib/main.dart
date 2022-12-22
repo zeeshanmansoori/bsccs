@@ -1,8 +1,9 @@
+import 'package:bsccs/cubit/auth_gate/auth_gate_cubit.dart';
 import 'package:bsccs/firebase_options.dart';
-import 'package:bsccs/screen/authGate/auth_gate.dart';
-import 'package:bsccs/screen/books/books_screen.dart';
-import 'package:bsccs/screen/questions/questions_screen.dart';
-import 'package:bsccs/screen/syllabus/syllabus_screen.dart';
+import 'package:bsccs/screens/authGate/auth_gate.dart';
+import 'package:bsccs/screens/books/books_screen.dart';
+import 'package:bsccs/screens/questions/questions_screen.dart';
+import 'package:bsccs/screens/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,7 +42,16 @@ class MyApp extends StatelessWidget {
           primarySwatch: CustomColors.primaryColor,
           iconTheme: const IconThemeData(color: CustomColors.primaryColor),
         ),
-        home: const AuthGate(),
+        home: BlocProvider(
+          create: (context) =>
+          AuthGateCubit(context.read<CsRepository>())
+            ..init(),
+          child: BlocBuilder<AuthGateCubit, AuthGateState>(
+            builder: (context, state) {
+              return const AuthGate();
+            },
+          ),
+        ),
         routes: {
           BooksScreen.routeName: (ctx) => const BooksScreen(),
           SyllabusScreen.routeName: (ctx) => const SyllabusScreen(),

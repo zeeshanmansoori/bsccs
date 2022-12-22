@@ -1,6 +1,8 @@
-import 'package:bsccs/cubit/books_screen/book_screen_cubit.dart';
+import 'package:bsccs/cubit/books/book_screen_cubit.dart';
 import 'package:bsccs/custom_widgets/ad_widget.dart';
-import 'package:bsccs/screen/books/widget/book_tab_item_widget.dart';
+import 'package:bsccs/custom_widgets/empty_state_widget.dart';
+import 'package:bsccs/models/add_wrapper.dart';
+import 'package:bsccs/screens/books/widget/book_tab_item_widget.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,13 +22,15 @@ class BookTabScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BooksScreenCubit, BooksScreenState>(
       builder: (context, state) {
-        if (state.isBookLoading) {
+        List<AddWrapper>? addWrapperData = state.tabsData[tabIndex];
+        if (addWrapperData == null) {
           return const CircularProgressIndicator().wrapCenter();
         }
-        var items = state.tabBooks[tabIndex].items;
-        if (items.isEmpty) {
-          return const Text("Empty screen").wrapCenter();
+
+        if (addWrapperData.isEmpty) {
+          return const EmptyStateWidget();
         }
+
         return GridView.count(
           padding: const EdgeInsets.only(
             top: 20,
@@ -38,29 +42,36 @@ class BookTabScreen extends StatelessWidget {
           crossAxisSpacing: 10,
           childAspectRatio: .7,
           crossAxisCount: 2,
-          children: items.map((e) => mapBookPageDataToWidget(e)).toList(),
+          children:
+              addWrapperData.map((e) => mapBookPageDataToWidget(e)).toList(),
         );
       },
     );
   }
 
-  Widget mapBookPageDataToWidget(dynamic data) {
-    if (data is CourseBook) {
+  Widget mapBookPageDataToWidget(AddWrapper data) {
+    if (data is AddWrapperData<CourseBook>) {
       return BookTabItemWidget(
-        book: data,
-        onClicked: () => onClicked.call(data),
+        book: data.item,
+        onClicked: () => onClicked.call(data.item),
       );
     }
-
-    return Column(
-      children: [
-        const AdWidget().expanded(flex: 1),
-        const Text(
-          "Add\n",
-          style: TextStyle(fontWeight: FontWeight.w500),
-          maxLines: 2,
-        ).paddingForOnly(top: 10),
-      ],
+    if (data is AddWrapperAd) {
+      return Column(
+        children: [
+          const AdWidget().expanded(flex: 1),
+          const Text(
+            "Add\n",
+            style: TextStyle(fontWeight: FontWeight.w500),
+            maxLines: 2,
+          ).paddingForAll(10),
+        ],
+      );
+    }
+    return Container(
+      color: Colors.blue,
+      width: 200,
+      height: 100,
     );
   }
 }

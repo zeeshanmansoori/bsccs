@@ -1,6 +1,6 @@
-part of 'questions_cubit.dart';
+part of 'book_screen_cubit.dart';
 
-class QuestionsState extends Equatable {
+class BooksScreenState extends Equatable {
 
   final String message;
   final Map<int, List<AddWrapper>> tabsData;
@@ -11,16 +11,16 @@ class QuestionsState extends Equatable {
         tabsData,
       ];
 
-  const QuestionsState({
+  const BooksScreenState({
     this.message = "",
     this.tabsData = const {},
   });
 
-  QuestionsState copyWith({
+  BooksScreenState copyWith({
     String? message,
     Map<int, List<AddWrapper>>? tabsData,
   }) {
-    return QuestionsState(
+    return BooksScreenState(
       message: message ?? this.message,
       tabsData: tabsData ?? this.tabsData,
     );

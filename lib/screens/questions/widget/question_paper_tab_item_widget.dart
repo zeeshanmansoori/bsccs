@@ -1,5 +1,5 @@
+import 'package:bsccs/models/question_paper_list_wrapper.dart';
 import 'package:bsccs/utils/constants.dart';
-import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +12,13 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
     required this.onClicked,
   }) : super(key: key);
 
-  final BookQuestions questionPaper;
+  final QuestionPaperListWrapper questionPaper;
   final Function onClicked;
 
   @override
   Widget build(BuildContext context) {
     var cardBorderRadius = BorderRadius.circular(Constants.cardRadius);
+
     return ExpandablePanel(
       theme: ExpandableThemeData(
         useInkWell: true,
@@ -29,17 +30,16 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
           fontWeight: FontWeight.w500,
           fontSize: 15,
         ),
-      ).paddingForOnly(left: 10, top: 10),
+      ).paddingForOnly(left: 10,top: 10),
       collapsed: const Divider(),
       expanded: Column(
-        children: questionPaper.links
+        children: questionPaper.items
             .map((e) => QuestionPaperWidget(
                   e,
                   onClicked: onPaperClicked,
                 ))
             .toList(),
       ).paddingForOnly(
-        left: 10,
         top: 10,
       ),
     );
@@ -64,8 +64,8 @@ class QuestionPaperWidget extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Text("Year : ${_questionPaper.timeStamp}")
-          .paddingWithSymmetry(vertical: 10)
-          .asButton(onTap: () => onClicked.call(_questionPaper)),
+          .paddingForOnly(left:10,top: 10,bottom: 10)
+          .asButton(onTap: () => onClicked.call(_questionPaper))
     );
   }
 }
