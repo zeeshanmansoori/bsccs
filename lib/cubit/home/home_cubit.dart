@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:bsccs/models/home_action.dart';
-import 'package:bsccs/screen/books/books_screen.dart';
+import 'package:bsccs/screens/books/books_screen.dart';
+import 'package:bsccs/screens/questions/questions_screen.dart';
+import 'package:bsccs/screens/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/bsc_cs_app_icons.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_repository/shared_repo.dart';
-
-import '../../screen/syllabus/syllabus_screen.dart';
 
 part 'home_state.dart';
 
@@ -26,7 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
     const HomeAction(
       iconData: BscCsApp.questions,
       title: "Questions",
-      destinationName: BooksScreen.routeName,
+      destinationName: QuestionsScreen.routeName,
     ),
     const HomeAction(
       iconData: BscCsApp.notes,

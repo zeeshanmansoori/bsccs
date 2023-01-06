@@ -1,16 +1,5 @@
-import 'dart:collection';
-
-extension ListExtension on Iterable<String?> {
-  String? toHintString() {
-    if (isEmpty) {
-      return null;
-    }
-    return "${IterableBase.iterableToShortString(this, "", "")}, etc.";
-  }
-}
-
 extension GeneralListExtension<T> on List<T> {
-  List<T> except(T value){
+  List<T> except(T value) {
     var temp = copy();
     temp.remove(value);
     return temp;
@@ -22,8 +11,16 @@ extension GeneralListExtension<T> on List<T> {
     return tempList;
   }
 
-  T firstWhereOrFirst(bool Function(T element) where){
-    return firstWhere(where,orElse: ()=>first);
+  T firstWhereOrFirst(bool Function(T element) where) {
+    return firstWhere(where, orElse: () => first);
+  }
+
+  T? getOrNull(int index) {
+    try {
+      return this[index];
+    } catch (e) {
+      return null;
+    }
   }
 }
 
@@ -50,5 +47,11 @@ extension CustomEnum on Enum {
     }
 
     return result;
+  }
+}
+
+extension ObjectExtension on Object {
+  T? tryCast<T>() {
+    return this is T ? (this as T) : null;
   }
 }

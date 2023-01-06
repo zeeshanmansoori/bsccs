@@ -2,7 +2,8 @@ part of 'syllabus_cubit.dart';
 
 class SyllabusState extends Equatable {
   final bool isLoading;
-  final List<dynamic> syllabus;
+  final List<CourseSyllabus> syllabus;
+
 
   @override
   List<Object> get props => [
@@ -11,13 +12,13 @@ class SyllabusState extends Equatable {
       ];
 
   const SyllabusState({
-    this.isLoading = false,
+    this.isLoading = true,
     this.syllabus = const [],
   });
 
   SyllabusState copyWith({
     bool? isLoading,
-    List<dynamic>? syllabus,
+    List<CourseSyllabus>? syllabus,
   }) {
     return SyllabusState(
       isLoading: isLoading ?? this.isLoading,
