@@ -5,6 +5,7 @@ import 'package:bsccs/screens/home/widgets/home_action_widget.dart';
 import 'package:bsccs/screens/home/widgets/home_recent_widget.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
+import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,31 +33,19 @@ class HomeScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         var cubit = context.read<HomeCubit>();
         return Scaffold(
-          appBar: AppBar(
+          appBar: WidgetUtils.csAppBar(
             title: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
                 return Text(
-                  "Hi 👋, ${state.userInfo?.userName}",
+                  "👋, ${state.userInfo?.userName}",
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
                   ),
-                );
+                ).paddingForOnly(left: 20);
               },
             ),
-            titleSpacing: 0,
-            backgroundColor: Colors.white,
-            elevation: 1,
-            iconTheme: const IconThemeData(color: Colors.black),
             actions: [
-              IconButton(
-                splashRadius: Constants.splashRadius,
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.notifications_outlined,
-                ),
-              ),
               IconButton(
                 splashRadius: Constants.splashRadius,
                 onPressed: () {},
@@ -104,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Recently viewed",
+                    "Notifications",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -120,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ).paddingWithSymmetry(horizontal: 20),
               if (recent.isEmpty)
-                const Text("No recent found")
+                const Text("empty")
                     .wrapCenter()
                     .paddingForOnly(top: 100),
               if (recent.isNotEmpty)
@@ -131,12 +120,6 @@ class HomeScreen extends StatelessWidget {
                       .toList(),
                 ).expanded(flex: 1)
             ],
-          ),
-          drawer: Drawer(
-            width: MediaQuery.of(context).size.width * .6,
-            child: Container(
-              color: Colors.blue,
-            ),
           ),
         );
       }),

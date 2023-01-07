@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:bsccs/models/home_action.dart';
 import 'package:bsccs/screens/books/books_screen.dart';
+import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
+import 'package:bsccs/screens/notes/notes_screen.dart';
+import 'package:bsccs/screens/practicals/practicals_screen.dart';
 import 'package:bsccs/screens/questions/questions_screen.dart';
 import 'package:bsccs/screens/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/bsc_cs_app_icons.dart';
@@ -31,17 +34,17 @@ class HomeCubit extends Cubit<HomeState> {
     const HomeAction(
       iconData: BscCsApp.notes,
       title: "Notes",
-      destinationName: BooksScreen.routeName,
+      destinationName: NotesScreen.routeName,
     ),
     const HomeAction(
       iconData: BscCsApp.practicals,
       title: "Practicals",
-      destinationName: BooksScreen.routeName,
+      destinationName: PracticalsScreen.routeName,
     ),
     const HomeAction(
       iconData: BscCsApp.freeCourses,
       title: "Free Courses",
-      destinationName: BooksScreen.routeName,
+      destinationName: FreeCoursesScreen.routeName,
     ),
   ];
 

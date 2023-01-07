@@ -2,6 +2,7 @@ import 'package:bsccs/cubit/books/book_screen_cubit.dart';
 import 'package:bsccs/models/global_arguments.dart';
 import 'package:bsccs/screens/books/book_tab_screen.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
+import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,25 +36,17 @@ class _BooksScreenState extends State<BooksScreen> {
         initialIndex: defaultSem - 1,
         length: tabCount,
         child: Scaffold(
-          appBar: AppBar(
-            iconTheme: const IconThemeData(color: Colors.black),
-            titleSpacing: 0,
+          appBar: WidgetUtils.csAppBar(
             bottom: TabBar(
               isScrollable: true,
               tabs: List.generate(
                 tabCount,
                 (index) => Text(
                   "Semester ${index + 1}",
-                  style: const TextStyle(color: Colors.black),
                 ).paddingWithSymmetry(vertical: 10),
               ).toList(),
             ),
-            title: const Text(
-              'Books',
-              style: TextStyle(color: Colors.black),
-            ),
-            backgroundColor: Colors.white,
-            elevation: 1,
+            titleText: "Books",
           ),
           body: TabBarView(
             children: List.generate(
@@ -75,7 +68,6 @@ class _BooksScreenState extends State<BooksScreen> {
 
   @override
   void dispose() {
-
     super.dispose();
   }
 }

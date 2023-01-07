@@ -2,8 +2,8 @@ import 'package:bsccs/cubit/syllabus_screen/syllabus_cubit.dart';
 import 'package:bsccs/custom_widgets/ad_widget.dart';
 import 'package:bsccs/custom_widgets/tab_item_widget.dart';
 import 'package:bsccs/models/global_arguments.dart';
-import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
+import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,16 +23,7 @@ class SyllabusScreen extends StatelessWidget {
       create: (context) =>
           SyllabusCubit(context.read<CsRepository>(), courseName),
       child: Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          titleSpacing: 0,
-          title: const Text(
-            'Syllabus',
-            style: TextStyle(color: Colors.black),
-          ),
-          backgroundColor: Colors.white,
-          elevation: 1,
-        ),
+        appBar: WidgetUtils.csAppBar(titleText: "Syllabus"),
         body: BlocBuilder<SyllabusCubit, SyllabusState>(
           builder: (context, state) {
             var isLoading = state.isLoading;
