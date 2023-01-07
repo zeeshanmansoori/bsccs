@@ -1,3 +1,4 @@
+import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class FreeCoursesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetUtils.csAppBar(titleText: "Free Courses"),
+      body:const EmptyStateWidget()
     );
   }
 }

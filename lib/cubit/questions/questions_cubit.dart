@@ -45,7 +45,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
         if (list.isNotEmpty) list.insert(0, AddWrapperAd());
         map[i] = list.toList();
         emit(state.copyWith(
-          tabsData: map,
+          tabsData: Map.unmodifiable(map),
         ));
       });
     }

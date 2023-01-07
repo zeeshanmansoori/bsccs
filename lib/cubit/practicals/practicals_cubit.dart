@@ -23,7 +23,7 @@ class PracticalsCubit extends Cubit<PracticalsState> {
   }
 
   void _init() async {
-    Map<int, List<AddWrapper>> map = Map.from(state.tabsData);
+    Map<int, List<AddWrapper>> map = Map.of(state.tabsData);
     for (var i = 0; i < semesterCount; ++i) {
       _getTabsData(i + 1, courseName).then((practicals) {
         sortById(Practical a,Practical b) => a.practicalNumber.compareTo(b.practicalNumber);
@@ -51,7 +51,7 @@ class PracticalsCubit extends Cubit<PracticalsState> {
         if (list.isNotEmpty) list.insert(0, AddWrapperAd());
         map[i] = list.toList();
         emit(state.copyWith(
-          tabsData: map,
+          tabsData: Map.unmodifiable(map),
         ));
       });
     }
