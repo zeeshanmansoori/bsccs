@@ -11,6 +11,8 @@ import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_repository/shared_repo.dart';
 
+import '../../models/app_notification.dart';
+
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -52,10 +54,27 @@ class HomeCubit extends Cubit<HomeState> {
       : _csRepository = csRepository,
         super(const HomeState()) {
     _fetchUserInfo();
+    _fetchNotifications();
   }
 
   void _fetchUserInfo() async {
     UserDetails? result = await _csRepository.getUserInfo();
     emit(state.copyWith(userInfo: result));
+  }
+
+  void _fetchNotifications() async {
+    emit(state.copyWith(notifications: _getDummyNotifications()));
+  }
+
+  List<AppNotification> _getDummyNotifications() {
+    return List.generate(
+      10,
+      (index) => AppNotification(
+        title: "title $index",
+        image: "",
+        type: "",
+        isRead: false,
+      ),
+    );
   }
 }

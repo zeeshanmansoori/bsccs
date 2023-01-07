@@ -53,6 +53,7 @@ dependencies:
   lottie: ^2.1.0
   expandable: ^5.0.1
   collection: ^1.16.0
+  flutter_quill: ^6.1.12
 
 dev_dependencies:
   flutter_test:

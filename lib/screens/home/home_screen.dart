@@ -1,8 +1,9 @@
 import 'package:bsccs/cubit/auth_gate/auth_gate_cubit.dart';
 import 'package:bsccs/cubit/home/home_cubit.dart';
+import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/models/global_arguments.dart';
 import 'package:bsccs/screens/home/widgets/home_action_widget.dart';
-import 'package:bsccs/screens/home/widgets/home_recent_widget.dart';
+import 'package:bsccs/screens/home/widgets/home_notification_widget.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
@@ -15,19 +16,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var recent = [];
-    // [
-    //   const HomeRecent(
-    //       title: "Concert Mathematics 3rd Edition by mac leran special disc",
-    //       description: "By James Bond"),
-    //   const HomeRecent(
-    //       title: "Concert Mathematics", description: "By James Bond"),
-    //   const HomeRecent(
-    //       title: "Concert Mathematics", description: "By James Bond"),
-    //   const HomeRecent(
-    //       title: "Concert Mathematics", description: "By James Bond"),
-    // ];
-
     return BlocProvider(
       create: (context) => HomeCubit(context.read<CsRepository>()),
       child: Builder(builder: (context) {
@@ -108,17 +96,19 @@ class HomeScreen extends StatelessWidget {
                   )
                 ],
               ).paddingWithSymmetry(horizontal: 20),
-              if (recent.isEmpty)
-                const Text("empty")
-                    .wrapCenter()
-                    .paddingForOnly(top: 100),
-              if (recent.isNotEmpty)
-                ListView(
-                  children: recent
-                      .map((e) => HomeRecentWidget(homeRecent: e)
-                          .paddingWithSymmetry(horizontal: 15))
-                      .toList(),
-                ).expanded(flex: 1)
+              BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  var notifications = state.notifications ?? [];
+                  if (notifications.isEmpty) return const EmptyStateWidget();
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (ctx, index) =>
+                        HomeNotificationWidget(notification: notifications[index])
+                            .paddingWithSymmetry(horizontal: 15),
+                    itemCount: notifications.length,
+                  );
+                },
+              ).paddingForOnly(bottom: 20).expanded(flex: 1),
             ],
           ),
         );

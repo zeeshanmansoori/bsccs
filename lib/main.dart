@@ -1,5 +1,6 @@
 import 'package:bsccs/cubit/auth_gate/auth_gate_cubit.dart';
 import 'package:bsccs/firebase_options.dart';
+import 'package:bsccs/screens/add_note/add_note_screen.dart';
 import 'package:bsccs/screens/authGate/auth_gate.dart';
 import 'package:bsccs/screens/books/books_screen.dart';
 import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
@@ -62,6 +63,8 @@ class MyApp extends StatelessWidget {
           NotesScreen.routeName: (ctx) => const NotesScreen(),
           PracticalsScreen.routeName: (ctx) => const PracticalsScreen(),
           FreeCoursesScreen.routeName: (ctx) => const FreeCoursesScreen(),
+          AddNoteScreen.routeName: (ctx) => const AddNoteScreen(),
+
         },
 
       ),
