@@ -1,16 +1,15 @@
-import 'package:bsccs/cubit/questions/questions_cubit.dart';
-import 'package:bsccs/custom_widgets/ad_widget.dart';
+import 'package:bsccs/cubit/practicals/practicals_cubit.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/models/add_wrapper.dart';
 import 'package:bsccs/models/list_wrapper.dart';
-import 'package:bsccs/screens/questions/widget/question_paper_tab_item_widget.dart';
+import 'package:bsccs/screens/practicals/widget/practicals_tab_item_widget.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_repository/shared_repo.dart';
 
-class QuestionTabScreen extends StatelessWidget {
-  const QuestionTabScreen({
+class PracticalsTabScreen extends StatelessWidget {
+  const PracticalsTabScreen({
     Key? key,
     required this.tabIndex,
     required this.onClicked,
@@ -21,7 +20,7 @@ class QuestionTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QuestionsCubit, QuestionsState>(
+    return BlocBuilder<PracticalsCubit, PracticalsState>(
       builder: (context, state) {
         List<AddWrapper>? addWrapperData = state.tabsData[tabIndex];
         if (addWrapperData == null) {
@@ -47,9 +46,9 @@ class QuestionTabScreen extends StatelessWidget {
   }
 
   Widget mapBookPageDataToWidget(AddWrapper data) {
-    if (data is AddWrapperData<ListWrapper>) {
-      return QuestionPaperTabItemWidget(
-        questionPaper: data.item,
+    if (data is AddWrapperData<ListWrapper<Practical>>) {
+      return PracticalsTabItemWidget(
+        practical: data.item,
         onClicked: () {},
       );
     }

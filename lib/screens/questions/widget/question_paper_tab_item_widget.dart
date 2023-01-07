@@ -1,6 +1,8 @@
-import 'package:bsccs/models/question_paper_list_wrapper.dart';
+import 'package:bsccs/models/list_wrapper.dart';
 import 'package:bsccs/utils/constants.dart';
+import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
+import 'package:collection/collection.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_repository/shared_repo.dart';
@@ -12,7 +14,7 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
     required this.onClicked,
   }) : super(key: key);
 
-  final QuestionPaperListWrapper questionPaper;
+  final ListWrapper questionPaper;
   final Function onClicked;
 
   @override
@@ -30,12 +32,14 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
           fontWeight: FontWeight.w500,
           fontSize: 15,
         ),
-      ).paddingForOnly(left: 10,top: 10),
+      ).paddingForOnly(left: 10, top: 10),
       collapsed: const Divider(),
       expanded: Column(
         children: questionPaper.items
-            .map((e) => QuestionPaperWidget(
+            .mapIndexed((index, e) => QuestionPaperWidget(
                   e,
+                  index,
+                  questionPaper.items.length,
                   onClicked: onPaperClicked,
                 ))
             .toList(),
@@ -50,9 +54,13 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
 
 class QuestionPaperWidget extends StatelessWidget {
   final QuestionPaper _questionPaper;
+  final int index;
+  final int size;
 
   const QuestionPaperWidget(
-    QuestionPaper questionPaper, {
+    QuestionPaper questionPaper,
+    this.index,
+    this.size, {
     Key? key,
     required this.onClicked,
   })  : _questionPaper = questionPaper,
@@ -61,11 +69,28 @@ class QuestionPaperWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: MediaQuery.of(context).size.width,
-      child: Text("Year : ${_questionPaper.timeStamp}")
-          .paddingForOnly(left:10,top: 10,bottom: 10)
-          .asButton(onTap: () => onClicked.call(_questionPaper))
-    );
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          gradient: LinearGradient(colors: [
+            CustomColors.primaryColor.withOpacity(.9),
+            CustomColors.primaryColor.withOpacity(.4),
+          ])),
+      child: Text(
+        "Year : ${_questionPaper.timeStamp}",
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+      ).paddingForOnly(left: 10, top: 10, bottom: 10),
+    )
+        .asButton(onTap: () => onClicked.call(_questionPaper))
+        .paddingWithSymmetry(vertical: 4);
+    // return SizedBox(
+    //   width: MediaQuery.of(context).size.width,
+    //   child: Text("Year : ${_questionPaper.timeStamp}")
+    //       .paddingForOnly(left:10,top: 10,bottom: 10)
+    //
+    // );
   }
 }

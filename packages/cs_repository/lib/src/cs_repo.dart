@@ -7,6 +7,7 @@ class CsRepository {
   final String _collectionInfoName = "info";
   final String _collectionBook = "books";
   final String _collectionQuestionPapers = "question_papers";
+  final String _collectionPracticals = "practicals";
   final String _csInfoDoc = "computer_science";
   final String _userCollection = "users";
   final String _syllabusDocName = "syllabus";
@@ -74,6 +75,23 @@ class CsRepository {
         .get();
     return result.docs.map((e) => e.data()).toList();
   }
+
+  Future<List<Practical>> getPracticals(
+      int semester,
+      String courseName,
+      ) async {
+    var result = await _db
+        .collection(courseName)
+        .doc("sem$semester")
+        .collection(_collectionPracticals)
+        .withConverter(
+      fromFirestore: Practical.fromMap,
+      toFirestore: (Practical info, _) => info.toMap(),
+    )
+        .get();
+    return result.docs.map((e) => e.data()).toList();
+  }
+
 
   Future<List<CourseSyllabus>> getSyllabus(
     String courseName,

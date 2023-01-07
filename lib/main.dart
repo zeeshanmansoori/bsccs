@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Bsc Cs',
         theme: ThemeData(
           fontFamily: 'Inter',
           primarySwatch: CustomColors.primaryColor,
