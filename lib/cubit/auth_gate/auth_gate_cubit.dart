@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'auth_gate_state.dart';
 
@@ -12,7 +13,6 @@ class AuthGateCubit extends Cubit<AuthGateState> {
         super(const AuthGateState());
 
   void init() {
-    print("zeeshan init called");
     _csRepository.getCourseInfo().then((value) async {
       if (value == null) return;
 
@@ -25,5 +25,9 @@ class AuthGateCubit extends Cubit<AuthGateState> {
         courseName: courseName,
       ));
     });
+  }
+
+  void updateUserId() {
+    _csRepository.setUserId(FirebaseAuth.instance.currentUser!.uid);
   }
 }

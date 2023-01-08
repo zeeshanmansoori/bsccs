@@ -11,6 +11,9 @@ class CsRepository {
   final String _csInfoDoc = "computer_science";
   final String _userCollection = "users";
   final String _syllabusDocName = "syllabus";
+  String? _userId;
+
+  String get userId => _userId!;
 
   void saveUserInfo(
     String userId,
@@ -77,21 +80,20 @@ class CsRepository {
   }
 
   Future<List<Practical>> getPracticals(
-      int semester,
-      String courseName,
-      ) async {
+    int semester,
+    String courseName,
+  ) async {
     var result = await _db
         .collection(courseName)
         .doc("sem$semester")
         .collection(_collectionPracticals)
         .withConverter(
-      fromFirestore: Practical.fromMap,
-      toFirestore: (Practical info, _) => info.toMap(),
-    )
+          fromFirestore: Practical.fromMap,
+          toFirestore: (Practical info, _) => info.toMap(),
+        )
         .get();
     return result.docs.map((e) => e.data()).toList();
   }
-
 
   Future<List<CourseSyllabus>> getSyllabus(
     String courseName,
@@ -107,8 +109,39 @@ class CsRepository {
         .get();
     return result.docs.map((e) => e.data()).toList();
   }
-}
 
-String getPdfLink(String id) {
-  return "https://drive.google.com/u/0/uc?id=$id&export=download";
+  Future<void> saveNotes(
+    String title,
+    String jsonEncode, {
+    required noteId,
+  }) {
+    var document =
+        _db.collection("users").doc(userId).collection("notes").doc();
+    return document.set({
+      "id": noteId??document.id,
+      "title": title,
+      "data": jsonEncode,
+    });
+  }
+
+  Future<List<Note>> getNotes() async {
+    var documents = await _db
+        .collection("users")
+        .doc(userId)
+        .collection("notes")
+        .withConverter(
+          fromFirestore: Note.fromFirestore,
+          toFirestore: (Note note, _) => note.toFirestore(),
+        )
+        .get();
+    return documents.docs.map((e) => e.data()).toList();
+  }
+
+  void setUserId(String uid) {
+    _userId = uid;
+  }
+
+  String getPdfLink(String id) {
+    return "https://drive.google.com/u/0/uc?id=$id&export=download";
+  }
 }
