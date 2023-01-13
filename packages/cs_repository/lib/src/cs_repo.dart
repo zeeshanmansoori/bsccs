@@ -118,7 +118,7 @@ class CsRepository {
     var document =
         _db.collection("users").doc(userId).collection("notes").doc();
     return document.set({
-      "id": noteId??document.id,
+      "id": noteId ?? document.id,
       "title": title,
       "data": jsonEncode,
     });
@@ -132,6 +132,17 @@ class CsRepository {
         .withConverter(
           fromFirestore: Note.fromFirestore,
           toFirestore: (Note note, _) => note.toFirestore(),
+        )
+        .get();
+    return documents.docs.map((e) => e.data()).toList();
+  }
+
+  Future<List<FreeCourse>> getFreeCourses() async {
+    var documents = await _db
+        .collection("free_courses")
+        .withConverter(
+          fromFirestore: FreeCourse.fromFirestore,
+          toFirestore: (FreeCourse course, _) => course.toFirestore(),
         )
         .get();
     return documents.docs.map((e) => e.data()).toList();

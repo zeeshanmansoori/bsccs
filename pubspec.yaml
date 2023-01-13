@@ -55,6 +55,7 @@ dependencies:
   collection: ^1.16.0
   flutter_quill: ^6.1.12
   formz: ^0.4.1
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:

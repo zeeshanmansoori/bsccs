@@ -1,7 +1,12 @@
+import 'package:bsccs/cubit/free_courses/free_courses_cubit.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/screens/free_courses/widgets/course_item_widget.dart';
+import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
+import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class FreeCoursesScreen extends StatelessWidget {
   const FreeCoursesScreen({Key? key}) : super(key: key);
@@ -9,12 +14,31 @@ class FreeCoursesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: WidgetUtils.csAppBar(titleText: "Free Courses"),
-        body: ListView.builder(
-          itemBuilder: (ctx, index) => CourseItemWidget(),
-          itemCount: 10,
-          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-        ));
+    return BlocProvider(
+      create: (context) => FreeCoursesCubit(context.read<CsRepository>()),
+      child: Scaffold(
+          appBar: WidgetUtils.csAppBar(titleText: "Free Courses"),
+          body: BlocBuilder<FreeCoursesCubit, FreeCoursesState>(
+            builder: (context, state) {
+              var items = state.courses;
+
+              if (state.status.isSubmissionInProgress) {
+                return const CircularProgressIndicator().wrapCenter();
+              }
+              if (items.isEmpty) {
+                return const EmptyStateWidget();
+              }
+
+              return ListView.builder(
+                itemBuilder: (ctx, index) => CourseItemWidget(items[index]),
+                itemCount: items.length,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+              );
+            },
+          )),
+    );
   }
 }
