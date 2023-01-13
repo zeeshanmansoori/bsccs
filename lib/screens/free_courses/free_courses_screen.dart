@@ -29,12 +29,17 @@ class FreeCoursesScreen extends StatelessWidget {
                 return const EmptyStateWidget();
               }
 
-              return ListView.builder(
+              return ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (ctx, index) => CourseItemWidget(items[index]),
                 itemCount: items.length,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
                   vertical: 10,
+                ),
+                separatorBuilder: (BuildContext context, int index) =>
+                    Container(
+                  height: 10,
                 ),
               );
             },

@@ -5,6 +5,7 @@ import 'package:bsccs/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_repository/shared_repo.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourseItemWidget extends StatelessWidget {
   const CourseItemWidget(this._item, {Key? key}) : super(key: key);
@@ -68,10 +69,18 @@ class CourseItemWidget extends StatelessWidget {
                   Text(
                     _item.courseDescription,
                     style: const TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 12, height: 1.3),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      height: 1.3,
+                    ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                  ).paddingForOnly(top: 10, bottom: 10),
+                  ).paddingForOnly(
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                  ),
                 ],
               ).paddingWithSymmetry(horizontal: 10, vertical: 10),
               Positioned(
@@ -98,7 +107,10 @@ class CourseItemWidget extends StatelessWidget {
           ),
         ],
       ).asButton(
-        onTap: () {},
+        onTap: () => launchUrl(
+          Uri.parse(_item.courseLink),
+          mode: LaunchMode.externalApplication,
+        ),
         borderRadius: cardBorderRadius,
       ),
     );
