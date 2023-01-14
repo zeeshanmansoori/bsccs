@@ -8,6 +8,7 @@ import 'package:bsccs/screens/authGate/auth_gate.dart';
 import 'package:bsccs/screens/books/books_screen.dart';
 import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
 import 'package:bsccs/screens/notes/notes_screen.dart';
+import 'package:bsccs/screens/pdf_screen/pdf_screen.dart';
 import 'package:bsccs/screens/practicals/practicals_screen.dart';
 import 'package:bsccs/screens/questions/questions_screen.dart';
 import 'package:bsccs/screens/syllabus/syllabus_screen.dart';
@@ -123,6 +124,7 @@ class MyApp extends StatelessWidget {
           PracticalsScreen.routeName: (ctx) => const PracticalsScreen(),
           FreeCoursesScreen.routeName: (ctx) => const FreeCoursesScreen(),
           AddNoteScreen.routeName: (ctx) => const AddNoteScreen(),
+          PdfScreen.routeName: (ctx) => const PdfScreen(),
         },
       ),
     );

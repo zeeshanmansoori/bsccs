@@ -2,6 +2,7 @@ import 'package:bsccs/cubit/syllabus_screen/syllabus_cubit.dart';
 import 'package:bsccs/custom_widgets/ad_widget.dart';
 import 'package:bsccs/custom_widgets/tab_item_widget.dart';
 import 'package:bsccs/models/global_arguments.dart';
+import 'package:bsccs/screens/pdf_screen/pdf_screen.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';
@@ -50,7 +51,7 @@ class SyllabusScreen extends StatelessWidget {
                       .map((e) => TabItemWidget(
                             title: e.name,
                             imageLink: e.imageLink,
-                            onClicked: () {},
+                            onClicked: ()=>PdfScreen.navigate(context,e.link),
                           ))
                       .toList(),
                 ).expanded(flex: 3),

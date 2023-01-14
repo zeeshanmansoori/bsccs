@@ -1,12 +1,12 @@
 import 'package:bsccs/cubit/books/book_screen_cubit.dart';
 import 'package:bsccs/models/global_arguments.dart';
 import 'package:bsccs/screens/books/book_tab_screen.dart';
+import 'package:bsccs/screens/pdf_screen/pdf_screen.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_repository/shared_repo.dart';
 
 class BooksScreen extends StatefulWidget {
   static const String routeName = "/books_screen";
@@ -53,17 +53,13 @@ class _BooksScreenState extends State<BooksScreen> {
               tabCount,
               (index) => BookTabScreen(
                 tabIndex: index,
-                onClicked: (book) => navigateToPdf(context, book),
+                onClicked: (book) => PdfScreen.navigate(context, book.link),
               ),
             ).toList(),
           ),
         ),
       ),
     );
-  }
-
-  void navigateToPdf(BuildContext context, CourseBook book) {
-    Navigator.pushNamed(context, BooksScreen.routeName);
   }
 
   @override
