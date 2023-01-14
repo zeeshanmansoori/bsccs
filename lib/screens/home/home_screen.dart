@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(context.read<CsRepository>()),
       child: Builder(builder: (context) {
         var cubit = context.read<HomeCubit>();
+
         return Scaffold(
           appBar: WidgetUtils.csAppBar(
             title: BlocBuilder<HomeCubit, HomeState>(
@@ -99,12 +100,16 @@ class HomeScreen extends StatelessWidget {
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   var notifications = state.notifications ?? [];
-                  if (notifications.isEmpty) return const EmptyStateWidget();
+                  if (notifications.isEmpty) {
+                    return const EmptyStateWidget(
+                      message: "No notification found",
+                    );
+                  }
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemBuilder: (ctx, index) =>
-                        HomeNotificationWidget(notification: notifications[index])
-                            .paddingWithSymmetry(horizontal: 15),
+                    itemBuilder: (ctx, index) => HomeNotificationWidget(
+                            notification: notifications[index])
+                        .paddingWithSymmetry(horizontal: 15),
                     itemCount: notifications.length,
                   );
                 },

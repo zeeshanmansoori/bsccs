@@ -1,4 +1,5 @@
 import 'package:bsccs/models/app_notification.dart';
+import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
@@ -24,20 +25,41 @@ class HomeNotificationWidget extends StatelessWidget {
           Container(
             height: 60,
             width: 60,
+            clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: CustomColors.primaryColor,
               borderRadius: BorderRadius.circular(Constants.cardRadius),
             ),
-          ),
-          Text(
-            "${notification.title}\n",
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
+            child: Image.network(
+              notification.image ?? "",
+              errorBuilder: (ctx, object, trace) => Container(
+                color: CustomColors.primaryColor,
+              ),
+              fit: BoxFit.cover,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ).paddingForOnly(left: 10,top: 2)
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                notification.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                notification.description,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ).paddingForOnly(top: 2),
+            ],
+          ).paddingForOnly(left: 10, top: 2)
         ],
       )
           .paddingForOnly(
@@ -47,7 +69,11 @@ class HomeNotificationWidget extends StatelessWidget {
             bottom: 10,
           )
           .asButton(
-            onTap: () {},
+            onTap: () {
+              if (notification.type == AppNotificationType.course) {
+                Navigator.pushNamed(context, FreeCoursesScreen.routeName);
+              }
+            },
             borderRadius: cardBorderRadius,
           ),
     );

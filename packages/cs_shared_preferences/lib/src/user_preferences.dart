@@ -4,27 +4,29 @@ import 'package:shared_repository/shared_repo.dart';
 class CsSharedPreferences {
   static SharedPreferences? _pref;
 
-  static Future<void> _init() async {
+  static Future<SharedPreferences> _init() async {
     _pref ??= await SharedPreferences.getInstance();
+    return _pref!;
   }
 
   static Future setUserInfo(UserDetails? userInfo) async {
-    await _init();
+    var pref = await _init();
+
     return await Future.wait([
-      _pref!.setString(_userName, userInfo?.userName ?? ""),
-      _pref!.setString(_userProfilePic, userInfo?.image ?? ""),
-      _pref!.setString(_userEmail, userInfo?.email ?? ""),
-      _pref!.setString(_userId, userInfo?.userId ?? ""),
+      pref.setString(_userName, userInfo?.userName ?? ""),
+      pref.setString(_userProfilePic, userInfo?.image ?? ""),
+      pref.setString(_userEmail, userInfo?.email ?? ""),
+      pref.setString(_userId, userInfo?.userId ?? ""),
     ]);
   }
 
   static Future<UserDetails> getUserInfo() async {
-    await _init();
+    var pref = await _init();
     return UserDetails(
-      userName: _pref!.getString(_userName) ?? "",
-      image: _pref!.getString(_userProfilePic) ?? "",
-      email: _pref!.getString(_userEmail) ?? "",
-      userId: _pref!.getString(_userId) ?? "",
+      userName: pref.getString(_userName) ?? "",
+      image: pref.getString(_userProfilePic) ?? "",
+      email: pref.getString(_userEmail) ?? "",
+      userId: pref.getString(_userId) ?? "",
     );
   }
 

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:bsccs/models/app_notification.dart';
 import 'package:bsccs/models/home_action.dart';
 import 'package:bsccs/screens/books/books_screen.dart';
 import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
@@ -7,16 +10,17 @@ import 'package:bsccs/screens/practicals/practicals_screen.dart';
 import 'package:bsccs/screens/questions/questions_screen.dart';
 import 'package:bsccs/screens/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/bsc_cs_app_icons.dart';
+import 'package:bsccs/utils/notification_storage_util.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_repository/shared_repo.dart';
-
-import '../../models/app_notification.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final CsRepository _csRepository;
+  StreamSubscription<Map<String, dynamic>>? _subscription;
+
   final List<HomeAction> homeActions = [
     const HomeAction(
       iconData: BscCsApp.books,
@@ -63,18 +67,22 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void _fetchNotifications() async {
-    emit(state.copyWith(notifications: _getDummyNotifications()));
+    NotificationStorageUtil.getIsReady().then((isReady) {
+      if (!isReady) return;
+      _subscription =
+          NotificationStorageUtil.getNotificationsAsStream().listen((event) {
+        if (isClosed) return;
+        List<AppNotification> notifications = [];
+        for (var element in event.entries) {
+          notifications.add(AppNotification.fromMap(element.value));
+        }
+
+        emit(state.copyWith(notifications: notifications));
+      });
+    });
   }
 
-  List<AppNotification> _getDummyNotifications() {
-    return List.generate(
-      10,
-      (index) => AppNotification(
-        title: "title $index",
-        image: "",
-        type: "",
-        isRead: false,
-      ),
-    );
+  void closeStreams() {
+    _subscription?.cancel();
   }
 }
