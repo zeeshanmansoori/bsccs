@@ -7,6 +7,8 @@ class AuthGateState extends Equatable {
   final String message;
   final int defaultSem;
   final String? courseName;
+  final bool? hasInternet;
+  final bool? previouslyHasInternet;
 
   @override
   List<Object?> get props => [
@@ -16,6 +18,8 @@ class AuthGateState extends Equatable {
         message,
         defaultSem,
         courseName,
+        hasInternet,
+    previouslyHasInternet,
       ];
 
   const AuthGateState({
@@ -25,6 +29,8 @@ class AuthGateState extends Equatable {
     this.message = "",
     this.defaultSem = 1,
     this.courseName,
+    this.hasInternet,
+    this.previouslyHasInternet,
   });
 
   AuthGateState copyWith({
@@ -34,6 +40,8 @@ class AuthGateState extends Equatable {
     String? message,
     int? defaultSem,
     String? courseName,
+    bool? hasInternet,
+    bool? previouslyHasInternet,
   }) {
     return AuthGateState(
       isLoggedIn: isLoggedIn ?? this.isLoggedIn,
@@ -42,6 +50,8 @@ class AuthGateState extends Equatable {
       message: message ?? this.message,
       defaultSem: defaultSem ?? this.defaultSem,
       courseName: courseName ?? this.courseName,
+      hasInternet: hasInternet ?? this.hasInternet,
+      previouslyHasInternet: previouslyHasInternet ?? this.previouslyHasInternet,
     );
   }
 }

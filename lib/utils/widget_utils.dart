@@ -1,3 +1,4 @@
+import 'package:bsccs/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -40,4 +41,13 @@ class WidgetUtils {
       bottom: bottom,
     );
   }
+
+  static IconButton saveButton(void Function()? onPressed) {
+    return IconButton(
+      splashRadius: Constants.splashRadius,
+      onPressed: onPressed,
+      icon: const Icon(Icons.save),
+    );
+  }
+
 }

@@ -78,15 +78,13 @@ class AddNoteScreen extends StatelessWidget {
                           ],
                         ).paddingForOnly(right: 10);
                       }
-                      return IconButton(
-                        splashRadius: Constants.splashRadius,
-                        onPressed: () => cubit.saveNote(
+                      return WidgetUtils.saveButton(() {
+                        cubit.saveNote(
                           jsonEncode(controller.document.toDelta().toJson()),
                           controller.document.toPlainText(),
                           noteId: oldNote?.id,
-                        ),
-                        icon: const Icon(Icons.save),
-                      );
+                        );
+                      });
                     },
                   ),
                 ]),

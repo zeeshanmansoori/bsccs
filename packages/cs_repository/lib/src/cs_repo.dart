@@ -11,6 +11,8 @@ class CsRepository {
   final String _csInfoDoc = "computer_science";
   final String _userCollection = "users";
   final String _syllabusDocName = "syllabus";
+  final defaultOption = const GetOptions(source: Source.serverAndCache);
+  GetOptions _getOptions = const GetOptions(source: Source.serverAndCache);
   String? _userId;
 
   String get userId => _userId!;
@@ -43,7 +45,7 @@ class CsRepository {
           fromFirestore: CourseInfo.fromFirestore,
           toFirestore: (CourseInfo info, _) => info.toFirestore(),
         )
-        .get();
+        .get(_getOptions);
     return result.data();
   }
 
@@ -59,7 +61,7 @@ class CsRepository {
           fromFirestore: CourseBook.fromFirestore,
           toFirestore: (CourseBook info, _) => info.toFirestore(),
         )
-        .get();
+        .get(_getOptions);
     return result.docs.map((e) => e.data()).toList();
   }
 
@@ -75,7 +77,7 @@ class CsRepository {
           fromFirestore: QuestionPaper.fromMap,
           toFirestore: (QuestionPaper info, _) => info.toMap(),
         )
-        .get();
+        .get(_getOptions);
     return result.docs.map((e) => e.data()).toList();
   }
 
@@ -91,7 +93,7 @@ class CsRepository {
           fromFirestore: Practical.fromMap,
           toFirestore: (Practical info, _) => info.toMap(),
         )
-        .get();
+        .get(_getOptions);
     return result.docs.map((e) => e.data()).toList();
   }
 
@@ -106,7 +108,7 @@ class CsRepository {
           fromFirestore: CourseSyllabus.fromFirestore,
           toFirestore: (CourseSyllabus info, _) => info.toFirestore(),
         )
-        .get();
+        .get(_getOptions);
     return result.docs.map((e) => e.data()).toList();
   }
 
@@ -133,7 +135,8 @@ class CsRepository {
           fromFirestore: Note.fromFirestore,
           toFirestore: (Note note, _) => note.toFirestore(),
         )
-        .get();
+        .get(_getOptions);
+
     return documents.docs.map((e) => e.data()).toList();
   }
 
@@ -144,7 +147,7 @@ class CsRepository {
           fromFirestore: FreeCourse.fromFirestore,
           toFirestore: (FreeCourse course, _) => course.toFirestore(),
         )
-        .get();
+        .get(_getOptions);
     return documents.docs.map((e) => e.data()).toList();
   }
 
@@ -154,5 +157,10 @@ class CsRepository {
 
   String getPdfLink(String id) {
     return "https://drive.google.com/u/0/uc?id=$id&export=download";
+  }
+
+  void updateFetchFrom(bool hasInternet) {
+    _getOptions =
+        hasInternet ? defaultOption : const GetOptions(source: Source.cache);
   }
 }

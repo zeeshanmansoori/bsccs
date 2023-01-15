@@ -24,8 +24,9 @@ class BooksScreenCubit extends Cubit<BooksScreenState> {
     Map<int, List<AddWrapper>> map = Map.from(state.tabsData);
     for (var i = 0; i < semesterCount; ++i) {
       _getTabsData(i + 1, courseName).then((books) {
-
-        List<AddWrapper> list = books.map((e) => AddWrapperData(item: e) as AddWrapper).toList();
+        if (isClosed) return;
+        List<AddWrapper> list =
+            books.map((e) => AddWrapperData(item: e) as AddWrapper).toList();
         if (list.isNotEmpty) list.insert(0, AddWrapperAd());
         map[i] = list.toList();
         emit(state.copyWith(
