@@ -17,6 +17,17 @@ class AppNotification {
     this.extra,
   });
 
+  factory AppNotification.empty(String id) {
+    return  AppNotification(
+      id: id,
+      title: "title",
+      image: "image",
+      type: AppNotificationType.course,
+      isRead: false,
+      description: "description",
+    );
+  }
+
   factory AppNotification.from({
     required dynamic title,
     required dynamic description,

@@ -7,7 +7,7 @@ class HomeState extends Equatable {
   @override
   List<Object?> get props => [
         userInfo,
-        notifications,
+        notifications?.length,
       ];
 
   const HomeState({

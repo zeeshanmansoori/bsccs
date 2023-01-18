@@ -4,6 +4,7 @@ import 'package:bsccs/cubit/auth_gate/auth_gate_cubit.dart';
 import 'package:bsccs/firebase_options.dart';
 import 'package:bsccs/models/app_notification.dart';
 import 'package:bsccs/screens/add_note/add_note_screen.dart';
+import 'package:bsccs/screens/all_notification/all_notification_screen.dart';
 import 'package:bsccs/screens/authGate/auth_gate.dart';
 import 'package:bsccs/screens/books/books_screen.dart';
 import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
@@ -11,6 +12,7 @@ import 'package:bsccs/screens/notes/notes_screen.dart';
 import 'package:bsccs/screens/pdf_screen/pdf_screen.dart';
 import 'package:bsccs/screens/practicals/practicals_screen.dart';
 import 'package:bsccs/screens/questions/questions_screen.dart';
+import 'package:bsccs/screens/settings_screen/settings_screen.dart';
 import 'package:bsccs/screens/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/notification_storage_util.dart';
@@ -66,9 +68,10 @@ void _saveMessage(RemoteMessage message) {
       "${message.data}");
 
   var type = message.data["type"];
+  print("zeeshan notification type $type");
   var id = message.data["id"];
   var notification = message.notification;
-  if (type == "course" && notification != null) {
+  if (type != null && notification != null) {
     var appNotification = AppNotification.from(
       title: notification.title,
       description: notification.body,
@@ -76,10 +79,7 @@ void _saveMessage(RemoteMessage message) {
       type: type,
       id: id,
     );
-    NotificationStorageUtil.saveNotification(appNotification)
-        .then((value) => print("zeeshan success "))
-        .onError(
-            (error, stackTrace) => print("zeeshan failure trace $stackTrace"));
+    NotificationStorageUtil.saveNotification(appNotification);
   }
 }
 
@@ -125,6 +125,9 @@ class MyApp extends StatelessWidget {
           FreeCoursesScreen.routeName: (ctx) => const FreeCoursesScreen(),
           AddNoteScreen.routeName: (ctx) => const AddNoteScreen(),
           PdfScreen.routeName: (ctx) => const PdfScreen(),
+          SettingsScreen.routeName: (ctx) => const SettingsScreen(),
+          AllNotificationScreen.routeName: (ctx) =>
+              const AllNotificationScreen(),
         },
       ),
     );

@@ -59,6 +59,18 @@ class HomeCubit extends Cubit<HomeState> {
         super(const HomeState()) {
     _fetchUserInfo();
     _fetchNotifications();
+    NotificationStorageUtil.registerListener(_onNotificationAdded);
+  }
+
+  void _onNotificationAdded(String notificationId) {
+    if (!isClosed) {
+      List<AppNotification> notifications = [];
+      notifications.addAll(state.notifications ?? []);
+      var notification =
+          NotificationStorageUtil.getNotification(notificationId);
+      notifications.add(notification);
+      emit(state.copyWith(notifications: notifications));
+    }
   }
 
   void _fetchUserInfo() async {
@@ -82,7 +94,15 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void closeStreams() {
+  void _closeStreams() {
+    NotificationStorageUtil.unRegisterListener();
+    NotificationStorageUtil.closeStream();
     _subscription?.cancel();
+  }
+
+  @override
+  Future<void> close() {
+    _closeStreams();
+    return super.close();
   }
 }

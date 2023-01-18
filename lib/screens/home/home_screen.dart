@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:bsccs/cubit/auth_gate/auth_gate_cubit.dart';
 import 'package:bsccs/cubit/home/home_cubit.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/models/global_arguments.dart';
+import 'package:bsccs/screens/all_notification/all_notification_screen.dart';
 import 'package:bsccs/screens/home/widgets/home_action_widget.dart';
 import 'package:bsccs/screens/home/widgets/home_notification_widget.dart';
+import 'package:bsccs/screens/settings_screen/settings_screen.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
@@ -47,7 +51,20 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 ),
-              ).paddingForOnly(right: 10)
+              ),
+              PopupMenuButton(
+                splashRadius: Constants.splashRadius,
+                itemBuilder: (ctx) => [
+                  const PopupMenuItem(
+                    value: 0,
+                    child: Text("Settings"),
+                  ),
+                ],
+                onSelected: (value) => Navigator.pushNamed(
+                  context,
+                  SettingsScreen.routeName,
+                ),
+              ),
             ],
           ),
           body: Column(
@@ -89,7 +106,13 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        AllNotificationScreen.routeName,
+                        arguments: cubit.state.notifications,
+                      );
+                    },
                     child: const Text(
                       "View All",
                       style: TextStyle(fontSize: 12),
@@ -100,6 +123,8 @@ class HomeScreen extends StatelessWidget {
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   var notifications = state.notifications ?? [];
+                  var size = min(4, notifications.length);
+
                   if (notifications.isEmpty) {
                     return const EmptyStateWidget(
                       message: "No notification found",
@@ -107,10 +132,10 @@ class HomeScreen extends StatelessWidget {
                   }
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemBuilder: (ctx, index) => HomeNotificationWidget(
-                            notification: notifications[index])
-                        .paddingWithSymmetry(horizontal: 15),
-                    itemCount: notifications.length,
+                    itemBuilder: (ctx, index) =>
+                        NotificationWidget(notification: notifications[index])
+                            .paddingWithSymmetry(horizontal: 15),
+                    itemCount: size,
                   );
                 },
               ).paddingForOnly(bottom: 20).expanded(flex: 1),

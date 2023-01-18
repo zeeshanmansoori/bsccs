@@ -5,8 +5,8 @@ import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 
-class HomeNotificationWidget extends StatelessWidget {
-  const HomeNotificationWidget({
+class NotificationWidget extends StatelessWidget {
+  const NotificationWidget({
     Key? key,
     required this.notification,
   }) : super(key: key);

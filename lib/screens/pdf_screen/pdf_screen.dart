@@ -26,7 +26,8 @@ class PdfScreen extends StatelessWidget {
               builder: (context, state) {
                 var enabled = state.pdfFile == null;
                 return WidgetUtils.saveButton(
-                    enabled ? () => cubit.startDownload(pdfLink) : null);
+                  enabled ? () => cubit.startDownload(pdfLink) : null,
+                );
               },
             ),
           ]),
