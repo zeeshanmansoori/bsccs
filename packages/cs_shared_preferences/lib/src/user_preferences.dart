@@ -17,7 +17,13 @@ class CsSharedPreferences {
       pref.setString(_userProfilePic, userInfo?.image ?? ""),
       pref.setString(_userEmail, userInfo?.email ?? ""),
       pref.setString(_userId, userInfo?.userId ?? ""),
+      pref.setInt(_mySemester, userInfo?.mySemester ?? -1),
     ]);
+  }
+
+  static void saveMySem(int mySemester) async {
+    var pref = await _init();
+    pref.setInt(_mySemester, mySemester);
   }
 
   static Future<UserDetails> getUserInfo() async {
@@ -27,6 +33,7 @@ class CsSharedPreferences {
       image: pref.getString(_userProfilePic) ?? "",
       email: pref.getString(_userEmail) ?? "",
       userId: pref.getString(_userId) ?? "",
+      mySemester: pref.getInt(_mySemester) ?? -1,
     );
   }
 
@@ -34,4 +41,5 @@ class CsSharedPreferences {
   static const String _userName = "userName";
   static const String _userEmail = "userEmail";
   static const String _userProfilePic = "userProfilePic";
+  static const String _mySemester = "semester";
 }

@@ -109,7 +109,7 @@ class MyApp extends StatelessWidget {
         ),
         home: BlocProvider(
           create: (context) =>
-              AuthGateCubit(context.read<CsRepository>())..init(),
+              AuthGateCubit(context.read<CsRepository>()),
           child: BlocBuilder<AuthGateCubit, AuthGateState>(
             builder: (context, state) {
               return const AuthGate();

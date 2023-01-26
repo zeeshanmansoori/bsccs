@@ -75,7 +75,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   void _fetchUserInfo() async {
     UserDetails? result = await _csRepository.getUserInfo();
-    emit(state.copyWith(userInfo: result));
+    emit(
+      state.copyWith(
+        userInfo: result,
+        displayBtmSheet: result.mySemester == -1,
+      ),
+    );
   }
 
   void _fetchNotifications() async {
@@ -104,5 +109,19 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> close() {
     _closeStreams();
     return super.close();
+  }
+
+  void updateDisplayBtmSheet(bool btmSheet) {
+    emit(state.copyWith(displayBtmSheet: btmSheet));
+  }
+
+  void updateSelectedSemester(int? selectedSemester) {
+    emit(
+      state.copyWith(
+        userInfo: state.userInfo?.copyWith(
+          mySemester: selectedSemester,
+        ),
+      ),
+    );
   }
 }

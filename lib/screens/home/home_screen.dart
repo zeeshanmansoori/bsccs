@@ -7,6 +7,7 @@ import 'package:bsccs/models/global_arguments.dart';
 import 'package:bsccs/screens/all_notification/all_notification_screen.dart';
 import 'package:bsccs/screens/home/widgets/home_action_widget.dart';
 import 'package:bsccs/screens/home/widgets/home_notification_widget.dart';
+import 'package:bsccs/screens/semester_selection/semester_selection_btm_sheet.dart';
 import 'package:bsccs/screens/settings_screen/settings_screen.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
@@ -22,127 +23,140 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeCubit(context.read<CsRepository>()),
-      child: Builder(builder: (context) {
-        var cubit = context.read<HomeCubit>();
+      child: BlocListener<HomeCubit, HomeState>(
+        listener: (context, state) {
+          if (state.displayBtmSheet == true) {
+            var cubit =context.read<HomeCubit>();
+            cubit.updateDisplayBtmSheet(false);
+            SemesterSelectionBtmSheet.show(context,cubit);
+          }
+        },
+        child: Builder(builder: (context) {
+          var cubit = context.read<HomeCubit>();
 
-        return Scaffold(
-          appBar: WidgetUtils.csAppBar(
-            title: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                return Text(
-                  "👋, ${state.userInfo?.userName}",
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ).paddingForOnly(left: 20);
-              },
-            ),
-            actions: [
-              IconButton(
-                splashRadius: Constants.splashRadius,
-                onPressed: () {},
-                icon: BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    var image = state.userInfo?.image ?? "";
-                    return CircleAvatar(
-                      backgroundImage:
-                          image.isEmpty ? null : NetworkImage(image),
-                    );
-                  },
-                ),
-              ),
-              PopupMenuButton(
-                splashRadius: Constants.splashRadius,
-                itemBuilder: (ctx) => [
-                  const PopupMenuItem(
-                    value: 0,
-                    child: Text("Settings"),
-                  ),
-                ],
-                onSelected: (value) => Navigator.pushNamed(
-                  context,
-                  SettingsScreen.routeName,
-                ),
-              ),
-            ],
-          ),
-          body: Column(
-            children: [
-              GridView.count(
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                children: cubit.homeActions
-                    .map(
-                      (action) => HomeActionWidget(
-                        homeAction: action,
-                        onClicked: () => Navigator.pushNamed(
-                          context,
-                          action.destinationName,
-                          arguments: GlobalArguments(
-                            courseName:
-                                context.read<AuthGateCubit>().state.courseName!,
-                            semesterCount:
-                                context.read<AuthGateCubit>().state.semesters!,
-                            defaultSemester:
-                                context.read<AuthGateCubit>().state.defaultSem,
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ).paddingWithSymmetry(vertical: 30, horizontal: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Notifications",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
+          return Scaffold(
+            appBar: WidgetUtils.csAppBar(
+              title: BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  return Text(
+                    "👋, ${state.userInfo?.userName}",
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        AllNotificationScreen.routeName,
-                        arguments: cubit.state.notifications,
+                  ).paddingForOnly(left: 20);
+                },
+              ),
+              actions: [
+                IconButton(
+                  splashRadius: Constants.splashRadius,
+                  onPressed: () {},
+                  icon: BlocBuilder<HomeCubit, HomeState>(
+                    builder: (context, state) {
+                      var image = state.userInfo?.image ?? "";
+                      return CircleAvatar(
+                        backgroundImage:
+                            image.isEmpty ? null : NetworkImage(image),
                       );
                     },
-                    child: const Text(
-                      "View All",
-                      style: TextStyle(fontSize: 12),
+                  ),
+                ),
+                PopupMenuButton(
+                  splashRadius: Constants.splashRadius,
+                  itemBuilder: (ctx) => [
+                    const PopupMenuItem(
+                      value: 0,
+                      child: Text("Settings"),
                     ),
-                  )
-                ],
-              ).paddingWithSymmetry(horizontal: 20),
-              BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  var notifications = state.notifications ?? [];
-                  var size = min(4, notifications.length);
+                  ],
+                  onSelected: (value) => Navigator.pushNamed(
+                    context,
+                    SettingsScreen.routeName,
+                  ),
+                ),
+              ],
+            ),
+            body: Column(
+              children: [
+                GridView.count(
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 3,
+                  children: cubit.homeActions
+                      .map(
+                        (action) => HomeActionWidget(
+                          homeAction: action,
+                          onClicked: () => Navigator.pushNamed(
+                            context,
+                            action.destinationName,
+                            arguments: GlobalArguments(
+                              courseName: context
+                                  .read<AuthGateCubit>()
+                                  .state
+                                  .courseName!,
+                              semesterCount: context
+                                  .read<AuthGateCubit>()
+                                  .state
+                                  .semesters!,
+                              defaultSemester:
+                                  cubit.state.userInfo?.mySemester ?? 1,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ).paddingWithSymmetry(vertical: 30, horizontal: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Notifications",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          AllNotificationScreen.routeName,
+                          arguments: cubit.state.notifications,
+                        );
+                      },
+                      child: const Text(
+                        "View All",
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    )
+                  ],
+                ).paddingWithSymmetry(horizontal: 20),
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    var notifications = state.notifications ?? [];
+                    var size = min(4, notifications.length);
 
-                  if (notifications.isEmpty) {
-                    return const EmptyStateWidget(
-                      message: "No notification found",
+                    if (notifications.isEmpty) {
+                      return const EmptyStateWidget(
+                        message: "No notification found",
+                      );
+                    }
+                    return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (ctx, index) =>
+                          NotificationWidget(notification: notifications[index])
+                              .paddingWithSymmetry(horizontal: 15),
+                      itemCount: size,
                     );
-                  }
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (ctx, index) =>
-                        NotificationWidget(notification: notifications[index])
-                            .paddingWithSymmetry(horizontal: 15),
-                    itemCount: size,
-                  );
-                },
-              ).paddingForOnly(bottom: 20).expanded(flex: 1),
-            ],
-          ),
-        );
-      }),
+                  },
+                ).paddingForOnly(bottom: 20).expanded(flex: 1),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

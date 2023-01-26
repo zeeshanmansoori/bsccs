@@ -21,13 +21,15 @@ class CsRepository {
     String userId,
     String name,
     String image,
-    String email,
-  ) {
+    String email, {
+    int mySemester = -1,
+  }) {
     var userInfo = UserDetails(
       userId: userId,
       userName: name,
       image: image,
       email: email,
+      mySemester: mySemester,
     );
     CsSharedPreferences.setUserInfo(userInfo);
     _db.collection(_userCollection).doc(userId).set(userInfo.toFireStore());
@@ -162,5 +164,9 @@ class CsRepository {
   void updateFetchFrom(bool hasInternet) {
     _getOptions =
         hasInternet ? defaultOption : const GetOptions(source: Source.cache);
+  }
+
+  void saveSelectedSemester(int sem) {
+    CsSharedPreferences.saveMySem(sem);
   }
 }

@@ -33,6 +33,7 @@ class AuthGate extends StatelessWidget {
             return const AuthScreen();
           }
           var cubit = context.read<AuthGateCubit>();
+          cubit.fetchCourseDetails();
           cubit.updateUserId();
           return const HomeScreen();
         },

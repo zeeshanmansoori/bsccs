@@ -3,9 +3,8 @@ part of 'auth_gate_cubit.dart';
 class AuthGateState extends Equatable {
   final bool? isLoggedIn;
   final int? semesters;
-  final bool apiStatus;
+  final FormzStatus status;
   final String message;
-  final int defaultSem;
   final String? courseName;
   final bool? hasInternet;
   final bool? previouslyHasInternet;
@@ -14,9 +13,8 @@ class AuthGateState extends Equatable {
   List<Object?> get props => [
         isLoggedIn,
         semesters,
-        apiStatus,
+        status,
         message,
-        defaultSem,
         courseName,
         hasInternet,
     previouslyHasInternet,
@@ -25,9 +23,8 @@ class AuthGateState extends Equatable {
   const AuthGateState({
     this.isLoggedIn,
     this.semesters,
-    this.apiStatus = true,
+    this.status = FormzStatus.pure,
     this.message = "",
-    this.defaultSem = 1,
     this.courseName,
     this.hasInternet,
     this.previouslyHasInternet,
@@ -36,9 +33,8 @@ class AuthGateState extends Equatable {
   AuthGateState copyWith({
     bool? isLoggedIn,
     int? semesters,
-    bool? apiStatus,
+    FormzStatus? status,
     String? message,
-    int? defaultSem,
     String? courseName,
     bool? hasInternet,
     bool? previouslyHasInternet,
@@ -46,9 +42,8 @@ class AuthGateState extends Equatable {
     return AuthGateState(
       isLoggedIn: isLoggedIn ?? this.isLoggedIn,
       semesters: semesters ?? this.semesters,
-      apiStatus: apiStatus ?? this.apiStatus,
+      status: status ?? this.status,
       message: message ?? this.message,
-      defaultSem: defaultSem ?? this.defaultSem,
       courseName: courseName ?? this.courseName,
       hasInternet: hasInternet ?? this.hasInternet,
       previouslyHasInternet: previouslyHasInternet ?? this.previouslyHasInternet,
