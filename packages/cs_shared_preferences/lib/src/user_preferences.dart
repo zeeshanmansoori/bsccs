@@ -25,6 +25,10 @@ class CsSharedPreferences {
     var pref = await _init();
     pref.setInt(_mySemester, mySemester);
   }
+  static Future<int?> getMySem() async{
+    var pref = await _init();
+    return pref.getInt(_mySemester);
+  }
 
   static Future<UserDetails> getUserInfo() async {
     var pref = await _init();
@@ -42,4 +46,11 @@ class CsSharedPreferences {
   static const String _userEmail = "userEmail";
   static const String _userProfilePic = "userProfilePic";
   static const String _mySemester = "semester";
+
+  static void clear() async{
+    var pref = await _init();
+    pref.clear();
+  }
+
+
 }

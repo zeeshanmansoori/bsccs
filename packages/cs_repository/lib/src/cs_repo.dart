@@ -169,4 +169,12 @@ class CsRepository {
   void saveSelectedSemester(int sem) {
     CsSharedPreferences.saveMySem(sem);
   }
+
+  Future<int?> getDefaultSemester() {
+    return CsSharedPreferences.getMySem();
+  }
+
+  void clearSharedPref(){
+    CsSharedPreferences.clear();
+  }
 }

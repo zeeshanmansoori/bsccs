@@ -5,7 +5,7 @@ import 'package:bsccs/firebase_options.dart';
 import 'package:bsccs/models/app_notification.dart';
 import 'package:bsccs/screens/add_note/add_note_screen.dart';
 import 'package:bsccs/screens/all_notification/all_notification_screen.dart';
-import 'package:bsccs/screens/authGate/auth_gate.dart';
+import 'package:bsccs/screens/authGate/auth_gate_screen.dart';
 import 'package:bsccs/screens/books/books_screen.dart';
 import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
 import 'package:bsccs/screens/notes/notes_screen.dart';
@@ -112,7 +112,7 @@ class MyApp extends StatelessWidget {
               AuthGateCubit(context.read<CsRepository>()),
           child: BlocBuilder<AuthGateCubit, AuthGateState>(
             builder: (context, state) {
-              return const AuthGate();
+              return const AuthGateScreen();
             },
           ),
         ),

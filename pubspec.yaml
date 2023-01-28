@@ -60,6 +60,7 @@ dependencies:
   firebase_messaging: ^14.2.1
   localstorage: ^4.0.0+1
   observe_internet_connectivity: ^1.0.2
+  dropdown_button2: ^1.9.2
 
 dev_dependencies:
   flutter_test:

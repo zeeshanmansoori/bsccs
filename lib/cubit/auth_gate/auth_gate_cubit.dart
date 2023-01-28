@@ -6,6 +6,7 @@ import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:formz/formz.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:observe_internet_connectivity/observe_internet_connectivity.dart';
 
 part 'auth_gate_state.dart';
@@ -93,5 +94,11 @@ class AuthGateCubit extends Cubit<AuthGateState> {
 
   void clearMessage() {
     emit(state.copyWith(message: ""));
+  }
+
+  void logOut() {
+    _csRepository.clearSharedPref();
+    FirebaseAuth.instance.signOut();
+    GoogleSignIn().signOut();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bsccs/utils/constants.dart';
+import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -50,4 +51,60 @@ class WidgetUtils {
     );
   }
 
+  static Future showAlertDialog(
+    BuildContext context, {
+    required String title,
+    required String description,
+    required void Function() onConfirmClicked,
+  }) {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (_) {
+          return AlertDialog(
+            insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+            contentPadding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 8,
+              bottom: 24,
+            ),
+            titlePadding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 16,
+            ),
+            buttonPadding: EdgeInsets.zero,
+            actionsPadding: const EdgeInsets.only(bottom: 16),
+            title: Text(title),
+            titleTextStyle: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontSize: 15,
+            ),
+            contentTextStyle: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
+              fontSize: 13,
+            ),
+            content: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Text(description),
+            ),
+            actionsAlignment: MainAxisAlignment.spaceBetween,
+            actions: [
+              TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Cancel"))
+                  .paddingWithSymmetry(horizontal: 16),
+              ElevatedButton(
+                onPressed: onConfirmClicked,
+                child: const Text("Confirm"),
+              ).paddingWithSymmetry(horizontal: 16),
+            ],
+          );
+        });
+  }
 }

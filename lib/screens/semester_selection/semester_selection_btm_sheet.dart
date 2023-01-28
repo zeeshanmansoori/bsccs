@@ -1,6 +1,7 @@
 import 'package:bsccs/cubit/home/home_cubit.dart';
 import 'package:bsccs/cubit/semester_selection/semester_selection_cubit.dart';
-import 'package:bsccs/utils/custom_colors.dart';
+import 'package:bsccs/custom_widgets/save_button.dart';
+import 'package:bsccs/custom_widgets/semester_dropdown.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';
@@ -45,7 +46,6 @@ class SemesterSelectionBtmSheet extends StatelessWidget {
           BlocBuilder<SemesterSelectionCubit, SemesterSelectionState>(
             builder: (context, state) {
               var semCount = state.semesterCount;
-              var cubit = context.read<SemesterSelectionCubit>();
               if (state.status.isSubmissionInProgress) {
                 return const CircularProgressIndicator();
               }
@@ -54,40 +54,21 @@ class SemesterSelectionBtmSheet extends StatelessWidget {
               }
               return Column(
                 children: [
-                  DropdownButton(
-                    value: state.selectedSemester,
-                    items: List.generate(
-                      semCount,
-                      (index) => DropdownMenuItem(
-                        value: index + 1,
-                        child: Text("semester ${index + 1}"),
-                      ),
-                    ),
-                    onChanged: cubit.onSemesterChanged,
-                    isExpanded: true,
-                    dropdownColor: CustomColors.actionColor,
-                    hint: const Text(
-                      "Choose semester",
-                    ).paddingForOnly(left: 10),
+                  SemesterDropDown<SemesterSelectionCubit,
+                      SemesterSelectionState>(
+                    onChanged: (cubit, value) => cubit.onSemesterChanged(value),
+                    getSemCount: semCount,
+                    getSelectedValue: (state) => state.selectedSemester,
+                    dropdownMaxHeight: 200,
                   ),
-                  MaterialButton(
-                    onPressed: state.selectedSemester == null
-                        ? null
-                        : () {
-                            cubit.saveSelectedSemester();
-                            _homeCubit.updateSelectedSemester(state.selectedSemester);
-                            WidgetUtils.showSnackBar(context, "Saved!");
-                            Navigator.pop(context);
-                          },
-                    color: CustomColors.primaryColor,
-                    textColor: Colors.white,
-                    disabledColor: CustomColors.primaryColor.shade100,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5),
-                      ),
-                    ),
-                    child: const Text("Save"),
+                  SaveButton<SemesterSelectionCubit, SemesterSelectionState>(
+                    isEnabled: (state) => state.selectedSemester != null,
+                    onPressed: (cubit) {
+                      cubit.saveSelectedSemester();
+                      _homeCubit.updateSelectedSemester(state.selectedSemester);
+                      WidgetUtils.showSnackBar(context, "Saved!");
+                      Navigator.pop(context);
+                    },
                   )
                 ],
               ).paddingForAll(16);

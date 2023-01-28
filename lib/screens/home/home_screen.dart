@@ -21,14 +21,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var authCubit = context.read<AuthGateCubit>();
     return BlocProvider(
       create: (context) => HomeCubit(context.read<CsRepository>()),
       child: BlocListener<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state.displayBtmSheet == true) {
-            var cubit =context.read<HomeCubit>();
+            var cubit = context.read<HomeCubit>();
             cubit.updateDisplayBtmSheet(false);
-            SemesterSelectionBtmSheet.show(context,cubit);
+            SemesterSelectionBtmSheet.show(context, cubit);
           }
         },
         child: Builder(builder: (context) {
@@ -63,16 +64,37 @@ class HomeScreen extends StatelessWidget {
                 ),
                 PopupMenuButton(
                   splashRadius: Constants.splashRadius,
+                  position: PopupMenuPosition.under,
                   itemBuilder: (ctx) => [
                     const PopupMenuItem(
                       value: 0,
                       child: Text("Settings"),
                     ),
+                    const PopupMenuItem(
+                      value: 1,
+                      child: Text("Logout"),
+                    )
                   ],
-                  onSelected: (value) => Navigator.pushNamed(
-                    context,
-                    SettingsScreen.routeName,
-                  ),
+                  onSelected: (value) {
+                    if (value == 0) {
+                      SettingsScreen.navigate(
+                        context,
+                        authCubit.state.semesters!,
+                      );
+                      return;
+                    }
+                    if (value == 1) {
+                      WidgetUtils.showAlertDialog(
+                        context,
+                        title: "Logout",
+                        description: "Are you sure you want to logout?",
+                        onConfirmClicked: () async {
+                          authCubit.logOut();
+                          Navigator.pop(context);
+                        },
+                      );
+                    }
+                  },
                 ),
               ],
             ),
@@ -88,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                       .map(
                         (action) => HomeActionWidget(
                           homeAction: action,
-                          onClicked: () => Navigator.pushNamed(
+                          onClicked: () async => Navigator.pushNamed(
                             context,
                             action.destinationName,
                             arguments: GlobalArguments(
@@ -101,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                                   .state
                                   .semesters!,
                               defaultSemester:
-                                  cubit.state.userInfo?.mySemester ?? 1,
+                                  (await cubit.getDefaultSem()) ?? 1,
                             ),
                           ),
                         ),
