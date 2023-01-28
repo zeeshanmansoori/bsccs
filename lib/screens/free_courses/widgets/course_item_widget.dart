@@ -1,3 +1,4 @@
+import 'package:bsccs/custom_widgets/adbox_widget.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
@@ -14,7 +15,7 @@ class CourseItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cardBorderRadius = BorderRadius.circular(Constants.cardRadius / 2);
-
+    final CsInterstitialAd csInterstitialAd = CsInterstitialAd();
     return Card(
       color: CustomColors.actionColor,
       elevation: 1,
@@ -107,10 +108,14 @@ class CourseItemWidget extends StatelessWidget {
           ),
         ],
       ).asButton(
-        onTap: () => launchUrl(
-          Uri.parse(_item.courseLink),
-          mode: LaunchMode.externalApplication,
-        ),
+        onTap: () {
+          csInterstitialAd.showAdd(
+            onAddDismiss: () => launchUrl(
+              Uri.parse(_item.courseLink),
+              mode: LaunchMode.externalApplication,
+            ),
+          );
+        },
         borderRadius: cardBorderRadius,
       ),
     );

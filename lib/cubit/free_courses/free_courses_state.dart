@@ -3,7 +3,7 @@ part of 'free_courses_cubit.dart';
 class FreeCoursesState extends Equatable {
   final FormzStatus status;
   final String msg;
-  final List<FreeCourse> courses;
+  final List<AddWrapper> courses;
 
   @override
   List<Object?> get props => [
@@ -21,7 +21,7 @@ class FreeCoursesState extends Equatable {
   FreeCoursesState copyWith({
     FormzStatus? status,
     String? msg,
-    List<FreeCourse>? courses,
+    List<AddWrapper>? courses,
   }) {
     return FreeCoursesState(
       status: status ?? this.status,

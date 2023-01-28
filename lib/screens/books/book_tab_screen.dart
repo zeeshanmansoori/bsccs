@@ -1,5 +1,5 @@
 import 'package:bsccs/cubit/books/book_screen_cubit.dart';
-import 'package:bsccs/custom_widgets/ad_widget.dart';
+import 'package:bsccs/custom_widgets/adbox_widget.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/models/add_wrapper.dart';
 import 'package:bsccs/screens/books/widget/book_tab_item_widget.dart';
@@ -57,16 +57,7 @@ class BookTabScreen extends StatelessWidget {
       );
     }
     if (data is AddWrapperAd) {
-      return Column(
-        children: [
-          const AdWidget().expanded(flex: 1),
-          const Text(
-            "Add\n",
-            style: TextStyle(fontWeight: FontWeight.w500),
-            maxLines: 2,
-          ).paddingForAll(10),
-        ],
-      );
+      return CsBannerAd.resizableAdBox();
     }
     return Container(
       color: Colors.blue,

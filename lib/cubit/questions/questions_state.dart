@@ -3,7 +3,7 @@ part of 'questions_cubit.dart';
 class QuestionsState extends Equatable {
 
   final String message;
-  final Map<int, List<AddWrapper>> tabsData;
+  final Map<int, List<ListWrapper<QuestionPaper>>> tabsData;
 
   @override
   List<Object?> get props => [
@@ -18,7 +18,7 @@ class QuestionsState extends Equatable {
 
   QuestionsState copyWith({
     String? message,
-    Map<int, List<AddWrapper>>? tabsData,
+    Map<int, List<ListWrapper<QuestionPaper>>>? tabsData,
   }) {
     return QuestionsState(
       message: message ?? this.message,

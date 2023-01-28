@@ -1,4 +1,5 @@
 import 'package:bsccs/cubit/practicals/practicals_cubit.dart';
+import 'package:bsccs/custom_widgets/adbox_widget.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/models/add_wrapper.dart';
 import 'package:bsccs/models/list_wrapper.dart';
@@ -28,18 +29,24 @@ class PracticalsTabScreen extends StatelessWidget {
         }
 
         if (addWrapperData.isEmpty) {
-         return const EmptyStateWidget();
+          return const EmptyStateWidget();
         }
-        return ListView.builder(
-          itemBuilder: (context, index) =>
-              mapBookPageDataToWidget(addWrapperData[index]),
-          itemCount: addWrapperData.length,
-          padding: const EdgeInsets.only(
-            top: 20,
-            left: 20,
-            right: 20,
-            bottom: 20,
-          ),
+        return Column(
+          children: [
+            ListView.builder(
+              itemBuilder: (context, index) =>
+                  mapBookPageDataToWidget(addWrapperData[index]),
+              itemCount: addWrapperData.length,
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: 20,
+              ),
+              physics: const BouncingScrollPhysics(),
+            ).expanded(flex: 1),
+            const CsBannerAd().paddingForOnly(bottom: 20)
+          ],
         );
       },
     );
@@ -57,6 +64,10 @@ class PracticalsTabScreen extends StatelessWidget {
       return Container();
     }
 
-    return Container(color: Colors.blue,width: 200,height: 100,);
+    return Container(
+      color: Colors.blue,
+      width: 200,
+      height: 100,
+    );
   }
 }

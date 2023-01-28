@@ -1,5 +1,5 @@
 import 'package:bsccs/cubit/syllabus_screen/syllabus_cubit.dart';
-import 'package:bsccs/custom_widgets/ad_widget.dart';
+import 'package:bsccs/custom_widgets/adbox_widget.dart';
 import 'package:bsccs/custom_widgets/tab_item_widget.dart';
 import 'package:bsccs/models/global_arguments.dart';
 import 'package:bsccs/screens/pdf_screen/pdf_screen.dart';
@@ -55,7 +55,7 @@ class SyllabusScreen extends StatelessWidget {
                           ))
                       .toList(),
                 ).expanded(flex: 3),
-                const AdWidget()
+                 CsBannerAd.resizableAdBox()
                     .paddingForOnly(bottom: 10, left: 10, right: 10)
                     .expanded(flex: 1)
               ],

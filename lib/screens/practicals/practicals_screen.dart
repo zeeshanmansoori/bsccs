@@ -1,7 +1,6 @@
 import 'package:bsccs/cubit/practicals/practicals_cubit.dart';
 import 'package:bsccs/models/global_arguments.dart';
 import 'package:bsccs/screens/practicals/practicals_tab_screen.dart';
-import 'package:bsccs/screens/questions/question_tab_screen.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';

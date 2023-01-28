@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bsccs/models/add_wrapper.dart';
+import 'package:bsccs/utils/extension/extension.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_repository/shared_repo.dart';
@@ -25,10 +26,7 @@ class BooksScreenCubit extends Cubit<BooksScreenState> {
     for (var i = 0; i < semesterCount; ++i) {
       _getTabsData(i + 1, courseName).then((books) {
         if (isClosed) return;
-        List<AddWrapper> list =
-            books.map((e) => AddWrapperData(item: e) as AddWrapper).toList();
-        if (list.isNotEmpty) list.insert(0, AddWrapperAd());
-        map[i] = list.toList();
+        map[i] = books.toAddWrapperList();
         emit(state.copyWith(
           tabsData: map,
         ));

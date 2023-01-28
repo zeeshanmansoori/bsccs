@@ -23,11 +23,11 @@ class QuestionsCubit extends Cubit<QuestionsState> {
   }
 
   void _init() async {
-    Map<int, List<AddWrapper>> map = Map.from(state.tabsData);
+    var map = Map.from(state.tabsData);
     for (var i = 0; i < semesterCount; ++i) {
       _getTabsData(i + 1, courseName).then((questionPapers) {
         var groupedData = groupBy(questionPapers, (s) => s.subjectId);
-        List<AddWrapper> list = groupedData
+        var list = groupedData
             .map(
               (key, value) => MapEntry(
                 key,
@@ -39,10 +39,8 @@ class QuestionsCubit extends Cubit<QuestionsState> {
               ),
             )
             .values
-            .toList()
-            .map((e) => AddWrapperData(item: e) as AddWrapper)
             .toList();
-        if (list.isNotEmpty) list.insert(0, AddWrapperAd());
+
         map[i] = list.toList();
         emit(state.copyWith(
           tabsData: Map.unmodifiable(map),

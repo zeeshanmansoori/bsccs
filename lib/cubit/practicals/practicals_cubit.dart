@@ -47,8 +47,6 @@ class PracticalsCubit extends Cubit<PracticalsState> {
         var list = wrapperList
             .map((e) => AddWrapperData(item: e) as AddWrapper)
             .toList();
-
-        if (list.isNotEmpty) list.insert(0, AddWrapperAd());
         map[i] = list.toList();
         emit(state.copyWith(
           tabsData: Map.unmodifiable(map),

@@ -1,3 +1,6 @@
+import 'package:bsccs/models/add_wrapper.dart';
+import 'package:collection/collection.dart';
+
 extension GeneralListExtension<T> on List<T> {
   List<T> except(T value) {
     var temp = copy();
@@ -21,6 +24,23 @@ extension GeneralListExtension<T> on List<T> {
     } catch (e) {
       return null;
     }
+  }
+
+  List<AddWrapper> toAddWrapperList({
+    int repeatAfterCount = 3,
+    bool showInStart = true,
+    bool withoutAdds = false,
+  }) {
+    List<AddWrapper> list = [];
+    var showStartCondition = showInStart? 0:repeatAfterCount;
+    forEachIndexed((index, e) {
+      if (index % (repeatAfterCount + 1) == showStartCondition && !withoutAdds) {
+        list.add(AddWrapperAd());
+      }
+      list.add(AddWrapperData(item: e));
+    });
+
+    return list;
   }
 }
 

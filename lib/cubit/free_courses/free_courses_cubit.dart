@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:bsccs/models/add_wrapper.dart';
+import 'package:bsccs/utils/extension/extension.dart';
 import 'package:cs_repository/src/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
@@ -18,7 +20,7 @@ class FreeCoursesCubit extends Cubit<FreeCoursesState> {
     try {
       var result = await _csRepository.getFreeCourses();
       emit(state.copyWith(
-        courses: result,
+        courses: result.toAddWrapperList(withoutAdds: true),
         status: FormzStatus.submissionSuccess,
       ));
     } catch (e) {

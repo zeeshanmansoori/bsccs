@@ -1,7 +1,7 @@
 part of 'note_cubit.dart';
 
 class NoteState extends Equatable {
-  final List<Note> notes;
+  final List<AddWrapper> notes;
   final FormzStatus status;
   final String msg;
 
@@ -19,7 +19,7 @@ class NoteState extends Equatable {
   });
 
   NoteState copyWith({
-    List<Note>? notes,
+    List<AddWrapper>? notes,
     FormzStatus? status,
     String? msg,
   }) {

@@ -1,8 +1,9 @@
 import 'package:bsccs/cubit/note/note_cubit.dart';
+import 'package:bsccs/custom_widgets/adbox_widget.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
+import 'package:bsccs/models/add_wrapper.dart';
 import 'package:bsccs/screens/add_note/add_note_screen.dart';
 import 'package:bsccs/utils/custom_colors.dart';
-import 'package:bsccs/utils/extension/extension.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
 import 'package:cs_repository/cs_repo.dart';
@@ -35,19 +36,25 @@ class NotesScreen extends StatelessWidget {
             if (state.status.isSubmissionSuccess) {
               var notes = state.notes;
               return ListView.separated(
-                itemBuilder: (ctx, index) => NotificationItem(
-                  notes[index],
-                  onClicked: (note) async {
-                    var result = await AddNoteScreen.navigate(
-                      context,
-                      note: note,
-                    );
+                itemBuilder: (ctx, index) {
+                  var item = notes[index];
+                  if (item is AddWrapperData<Note>) {
+                    return NotificationItem(
+                      item.item,
+                      onClicked: (note) async {
+                        var result = await AddNoteScreen.navigate(
+                          context,
+                          note: note,
+                        );
 
-                    if (result == true) {
-                      cubit.fetchNotes();
-                    }
-                  },
-                ),
+                        if (result == true) {
+                          cubit.fetchNotes();
+                        }
+                      },
+                    );
+                  }
+                  return const CsBannerAd();
+                },
                 itemCount: notes.length,
                 padding: const EdgeInsets.all(20),
                 separatorBuilder: (ctx, index) => const Divider(),
