@@ -38,8 +38,10 @@ class CourseItemWidget extends StatelessWidget {
                 : Image.network(
                     _item.courseImage,
                     errorBuilder: (ctx, object, trace) => Container(
-                      color: CustomColors.primaryColor,
-                    ),
+                        color: CustomColors.primaryColor,
+                        child: Image.asset(
+                          Utils.getImagePath("course"),
+                        )),
                     fit: BoxFit.cover,
                   ),
           ),
@@ -100,7 +102,9 @@ class CourseItemWidget extends StatelessWidget {
                         ).paddingForAll(5)
                       : Image.network(
                           _item.courseProviderImage,
-                          errorBuilder: (ctx, object, trace) => Container(),
+                          errorBuilder: (ctx, object, trace) => Image.asset(
+                            Utils.getImagePath("course"),
+                          ).paddingForAll(10),
                         ),
                 ),
               )

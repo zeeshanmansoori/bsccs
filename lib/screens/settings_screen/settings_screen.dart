@@ -6,7 +6,7 @@ import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../custom_widgets/save_button.dart';
+import '../../custom_widgets/cs_material_button.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const routeName = "/settings";
@@ -33,12 +33,13 @@ class SettingsScreen extends StatelessWidget {
             const Spacer(
               flex: 1,
             ),
-            SaveButton<SettingsCubit, SettingsState>(
+            CsMaterialButton<SettingsCubit, SettingsState>(
               isEnabled: (state) => state.selectedSemester != null,
               onPressed: (cubit) {
                 cubit.saveSelectedSemester();
                 WidgetUtils.showSnackBar(context, "Saved!");
               },
+              text: "Save",
             ).paddingForOnly(bottom: 16)
           ],
         ),

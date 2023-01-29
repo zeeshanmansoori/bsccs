@@ -1,6 +1,6 @@
 import 'package:bsccs/cubit/home/home_cubit.dart';
 import 'package:bsccs/cubit/semester_selection/semester_selection_cubit.dart';
-import 'package:bsccs/custom_widgets/save_button.dart';
+import 'package:bsccs/custom_widgets/cs_material_button.dart';
 import 'package:bsccs/custom_widgets/semester_dropdown.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:bsccs/utils/widget_utils.dart';
@@ -61,7 +61,7 @@ class SemesterSelectionBtmSheet extends StatelessWidget {
                     getSelectedValue: (state) => state.selectedSemester,
                     dropdownMaxHeight: 200,
                   ),
-                  SaveButton<SemesterSelectionCubit, SemesterSelectionState>(
+                  CsMaterialButton<SemesterSelectionCubit, SemesterSelectionState>(
                     isEnabled: (state) => state.selectedSemester != null,
                     onPressed: (cubit) {
                       cubit.saveSelectedSemester();
@@ -69,6 +69,7 @@ class SemesterSelectionBtmSheet extends StatelessWidget {
                       WidgetUtils.showSnackBar(context, "Saved!");
                       Navigator.pop(context);
                     },
+                    text: "Save",
                   )
                 ],
               ).paddingForAll(16);

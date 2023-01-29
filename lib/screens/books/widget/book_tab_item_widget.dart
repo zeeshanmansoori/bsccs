@@ -1,6 +1,7 @@
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
+import 'package:bsccs/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_repository/shared_repo.dart';
 
@@ -30,6 +31,9 @@ class BookTabItemWidget extends StatelessWidget {
                 book.imageLink,
                 fit: BoxFit.cover,
                 width: constraints.maxWidth,
+                errorBuilder: (context, o1, stack) {
+                  return Image.asset(Utils.getImagePath("pdf"));
+                },
               );
             }),
           ),
@@ -40,7 +44,7 @@ class BookTabItemWidget extends StatelessWidget {
           maxLines: 2,
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
-        ).paddingForAll( 10),
+        ).paddingForAll(10),
       ],
     ).asButton(
       onTap: onClicked,

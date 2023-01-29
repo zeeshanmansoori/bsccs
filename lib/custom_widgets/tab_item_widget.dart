@@ -1,8 +1,8 @@
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
+import 'package:bsccs/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_repository/shared_repo.dart';
 
 class TabItemWidget extends StatelessWidget {
   const TabItemWidget({
@@ -34,6 +34,9 @@ class TabItemWidget extends StatelessWidget {
                 imageLink,
                 fit: BoxFit.cover,
                 width: constraints.maxWidth,
+                errorBuilder: (context, o1, stack) {
+                  return Image.asset(Utils.getImagePath("pdf"));
+                },
               );
             }),
           ),

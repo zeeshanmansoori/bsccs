@@ -4,7 +4,6 @@ import 'package:bsccs/utils/extension/extension.dart';
 import 'package:cs_repository/src/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:shared_repository/shared_repo.dart';
 
 part 'free_courses_state.dart';
 
