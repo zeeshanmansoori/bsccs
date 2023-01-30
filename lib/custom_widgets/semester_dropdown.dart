@@ -37,6 +37,8 @@ class SemesterDropDown<B extends StateStreamable<S>, S>
             "Choose semester",
           ).paddingForOnly(left: 10),
           dropdownMaxHeight: dropdownMaxHeight,
+          buttonPadding: const EdgeInsets.all(5),
+          icon: const Icon(Icons.arrow_drop_down).paddingForOnly(right: 20),
         );
       },
     );

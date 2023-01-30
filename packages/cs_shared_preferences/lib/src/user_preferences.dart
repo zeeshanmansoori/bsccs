@@ -25,7 +25,8 @@ class CsSharedPreferences {
     var pref = await _init();
     pref.setInt(_mySemester, mySemester);
   }
-  static Future<int?> getMySem() async{
+
+  static Future<int?> getMySem() async {
     var pref = await _init();
     return pref.getInt(_mySemester);
   }
@@ -46,11 +47,20 @@ class CsSharedPreferences {
   static const String _userEmail = "userEmail";
   static const String _userProfilePic = "userProfilePic";
   static const String _mySemester = "semester";
+  static const String _offlineMode = "offlineMode";
 
-  static void clear() async{
+  static void clear() async {
     var pref = await _init();
     pref.clear();
   }
 
+  static Future<bool> getOfflineMode() async {
+    var pref = await _init();
+    return pref.getBool(_offlineMode) ?? false;
+  }
 
+  static void setOfflineMode(bool value) async {
+    var pref = await _init();
+    pref.setBool(_offlineMode, value);
+  }
 }

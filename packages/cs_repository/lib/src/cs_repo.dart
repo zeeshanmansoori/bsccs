@@ -161,9 +161,11 @@ class CsRepository {
     return "https://drive.google.com/u/0/uc?id=$id&export=download";
   }
 
-  void updateFetchFrom(bool hasInternet) {
-    _getOptions =
-        hasInternet ? defaultOption : const GetOptions(source: Source.cache);
+  void updateFetchFrom(bool hasInternet) async {
+    var offlineModeEnabled = await getOfflineMode();
+    _getOptions = (offlineModeEnabled && !hasInternet)
+        ? const GetOptions(source: Source.cache)
+        : defaultOption;
   }
 
   void saveSelectedSemester(int sem) {
@@ -174,7 +176,15 @@ class CsRepository {
     return CsSharedPreferences.getMySem();
   }
 
-  void clearSharedPref(){
+  void setOfflineMode(bool value) {
+    CsSharedPreferences.setOfflineMode(value);
+  }
+
+  Future<bool> getOfflineMode() {
+    return CsSharedPreferences.getOfflineMode();
+  }
+
+  void clearSharedPref() {
     CsSharedPreferences.clear();
   }
 }
