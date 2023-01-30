@@ -58,6 +58,7 @@ class NotesScreen extends StatelessWidget {
                 itemCount: notes.length,
                 padding: const EdgeInsets.all(20),
                 separatorBuilder: (ctx, index) => const Divider(),
+                physics: const BouncingScrollPhysics(),
               );
             }
             return const EmptyStateWidget();

@@ -42,6 +42,7 @@ class BookTabScreen extends StatelessWidget {
           crossAxisSpacing: 10,
           childAspectRatio: .7,
           crossAxisCount: 2,
+          physics: const BouncingScrollPhysics(),
           children:
               addWrapperData.map((e) => mapBookPageDataToWidget(e)).toList(),
         );

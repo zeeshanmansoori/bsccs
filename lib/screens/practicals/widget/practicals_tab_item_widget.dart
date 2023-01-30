@@ -39,6 +39,7 @@ class PracticalsTabItemWidget extends StatelessWidget {
         childAspectRatio: 2,
         crossAxisCount: 3,
         crossAxisSpacing: 10,
+        physics: const BouncingScrollPhysics(),
         children: practical.items
             .mapIndexed(
               (index, e) => PracticalItemWidget(
@@ -50,7 +51,6 @@ class PracticalsTabItemWidget extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class PracticalItemWidget extends StatelessWidget {

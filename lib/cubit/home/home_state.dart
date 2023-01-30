@@ -2,7 +2,7 @@ part of 'home_cubit.dart';
 
 class HomeState extends Equatable {
   final UserDetails? userInfo;
-  final List<AppNotification>? notifications;
+  final List<AddWrapper>? notifications;
   final bool? displayBtmSheet;
 
   @override
@@ -20,7 +20,7 @@ class HomeState extends Equatable {
 
   HomeState copyWith({
     UserDetails? userInfo,
-    List<AppNotification>? notifications,
+    List<AddWrapper>? notifications,
     bool? displayBtmSheet,
   }) {
     return HomeState(

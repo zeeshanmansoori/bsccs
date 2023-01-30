@@ -3,6 +3,7 @@ import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NotificationWidget extends StatelessWidget {
@@ -27,12 +28,14 @@ class NotificationWidget extends StatelessWidget {
             width: 60,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
+              color: CustomColors.primaryColor,
               borderRadius: BorderRadius.circular(Constants.cardRadius),
             ),
             child: Image.network(
               notification.image ?? "",
-              errorBuilder: (ctx, object, trace) => Container(
-                color: CustomColors.primaryColor,
+              errorBuilder: (ctx, object, trace) => const Icon(
+                CupertinoIcons.bell_fill,
+                color: Colors.white,
               ),
               fit: BoxFit.cover,
             ),

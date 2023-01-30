@@ -42,9 +42,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //   _saveMessage(message);
-  // });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    _saveMessage(message);
+  });
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     _saveMessage(message);
   });

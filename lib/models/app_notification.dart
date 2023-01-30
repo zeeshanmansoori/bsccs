@@ -6,6 +6,7 @@ class AppNotification {
   final AppNotificationType type;
   final Map<String, String?>? extra;
   final bool isRead;
+  final num timeStamp;
 
   const AppNotification({
     required this.id,
@@ -14,17 +15,19 @@ class AppNotification {
     required this.type,
     required this.isRead,
     required this.description,
+    required this.timeStamp,
     this.extra,
   });
 
   factory AppNotification.empty(String id) {
-    return  AppNotification(
+    return AppNotification(
       id: id,
       title: "title",
       image: "image",
       type: AppNotificationType.course,
       isRead: false,
       description: "description",
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
     );
   }
 
@@ -45,6 +48,7 @@ class AppNotification {
       isRead: isRead,
       extra: map,
       description: description,
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
     );
   }
 
@@ -57,6 +61,7 @@ class AppNotification {
       'type': type.name,
       'extra': extra,
       'isRead': isRead,
+      'timeStamp': timeStamp,
     };
   }
 
@@ -69,6 +74,7 @@ class AppNotification {
       type: AppNotificationType.fromString(map['type']),
       extra: map['extra'],
       isRead: map['isRead'],
+      timeStamp: map['timeStamp'],
     );
   }
 

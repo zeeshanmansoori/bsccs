@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:bsccs/cubit/auth_gate/auth_gate_cubit.dart';
 import 'package:bsccs/cubit/home/home_cubit.dart';
+import 'package:bsccs/custom_widgets/adbox_widget.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
+import 'package:bsccs/models/add_wrapper.dart';
+import 'package:bsccs/models/app_notification.dart';
 import 'package:bsccs/models/global_arguments.dart';
 import 'package:bsccs/screens/all_notification/all_notification_screen.dart';
 import 'package:bsccs/screens/home/widgets/home_action_widget.dart';
@@ -167,9 +170,14 @@ class HomeScreen extends StatelessWidget {
                     }
                     return ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemBuilder: (ctx, index) =>
-                          NotificationWidget(notification: notifications[index])
-                              .paddingWithSymmetry(horizontal: 15),
+                      itemBuilder: (ctx, index) {
+                        var item = notifications[index];
+                        if (item is AddWrapperData<AppNotification>) {
+                          return NotificationWidget(notification: item.item)
+                              .paddingWithSymmetry(horizontal: 15);
+                        }
+                        return const CsBannerAd().paddingWithSymmetry(horizontal: 15);
+                      },
                       itemCount: size,
                     );
                   },

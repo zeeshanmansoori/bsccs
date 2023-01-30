@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:bsccs/models/add_wrapper.dart';
 import 'package:bsccs/models/app_notification.dart';
 import 'package:bsccs/models/home_action.dart';
 import 'package:bsccs/screens/books/books_screen.dart';
@@ -10,7 +11,9 @@ import 'package:bsccs/screens/practicals/practicals_screen.dart';
 import 'package:bsccs/screens/questions/questions_screen.dart';
 import 'package:bsccs/screens/syllabus/syllabus_screen.dart';
 import 'package:bsccs/utils/bsc_cs_app_icons.dart';
+import 'package:bsccs/utils/extension/extension.dart';
 import 'package:bsccs/utils/notification_storage_util.dart';
+import 'package:collection/collection.dart';
 import 'package:cs_repository/cs_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_repository/shared_repo.dart';
@@ -64,11 +67,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   void _onNotificationAdded(String notificationId) {
     if (!isClosed) {
-      List<AppNotification> notifications = [];
-      notifications.addAll(state.notifications ?? []);
+      List<AddWrapper> notifications = [];
       var notification =
           NotificationStorageUtil.getNotification(notificationId);
-      notifications.add(notification);
+      notifications.add(AddWrapperData(item: notification));
+      notifications.addAll(state.notifications ?? []);
       emit(state.copyWith(notifications: notifications));
     }
   }
@@ -93,8 +96,8 @@ class HomeCubit extends Cubit<HomeState> {
         for (var element in event.entries) {
           notifications.add(AppNotification.fromMap(element.value));
         }
-
-        emit(state.copyWith(notifications: notifications));
+        notifications.sortBy((val) => val.timeStamp);
+        emit(state.copyWith(notifications: notifications.toAddWrapperList()));
       });
     });
   }
