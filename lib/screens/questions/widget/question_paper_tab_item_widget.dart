@@ -10,12 +10,12 @@ import 'package:shared_repository/shared_repo.dart';
 class QuestionPaperTabItemWidget extends StatelessWidget {
   const QuestionPaperTabItemWidget({
     Key? key,
-    required this.questionPaper,
+    required this.questionPapers,
     required this.onClicked,
   }) : super(key: key);
 
-  final ListWrapper questionPaper;
-  final Function onClicked;
+  final ListWrapper questionPapers;
+  final Function(QuestionPaper) onClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
         inkWellBorderRadius: cardBorderRadius,
       ),
       header: Text(
-        "${questionPaper.subjectName}\n",
+        "${questionPapers.subjectName}\n",
         style: const TextStyle(
           fontWeight: FontWeight.w500,
           fontSize: 15,
@@ -35,12 +35,12 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
       ).paddingForOnly(left: 10, top: 10),
       collapsed: const Divider(),
       expanded: Column(
-        children: questionPaper.items
+        children: questionPapers.items
             .mapIndexed((index, e) => QuestionPaperWidget(
                   e,
                   index,
-                  questionPaper.items.length,
-                  onClicked: onPaperClicked,
+                  questionPapers.items.length,
+                  onClicked: onClicked,
                 ))
             .toList(),
       ).paddingForOnly(
@@ -48,8 +48,6 @@ class QuestionPaperTabItemWidget extends StatelessWidget {
       ),
     );
   }
-
-  void onPaperClicked(QuestionPaper paper) {}
 }
 
 class QuestionPaperWidget extends StatelessWidget {

@@ -17,7 +17,7 @@ class PracticalsTabScreen extends StatelessWidget {
   }) : super(key: key);
 
   final int tabIndex;
-  final Function(QuestionPaper book) onClicked;
+  final Function(Practical practical) onClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class PracticalsTabScreen extends StatelessWidget {
           children: [
             ListView.builder(
               itemBuilder: (context, index) =>
-                  mapBookPageDataToWidget(addWrapperData[index]),
+                  mapBookPageDataToWidget(addWrapperData[index], onClicked),
               itemCount: addWrapperData.length,
               padding: const EdgeInsets.only(
                 top: 20,
@@ -52,11 +52,14 @@ class PracticalsTabScreen extends StatelessWidget {
     );
   }
 
-  Widget mapBookPageDataToWidget(AddWrapper data) {
+  Widget mapBookPageDataToWidget(
+    AddWrapper data,
+    Function(Practical practical) onClicked,
+  ) {
     if (data is AddWrapperData<ListWrapper<Practical>>) {
       return PracticalsTabItemWidget(
         practical: data.item,
-        onClicked: () {},
+        onClicked: onClicked,
       );
     }
     if (data is AddWrapperAd) {

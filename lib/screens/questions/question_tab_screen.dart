@@ -2,6 +2,7 @@ import 'package:bsccs/cubit/questions/questions_cubit.dart';
 import 'package:bsccs/custom_widgets/adbox_widget.dart';
 import 'package:bsccs/custom_widgets/empty_state_widget.dart';
 import 'package:bsccs/models/list_wrapper.dart';
+import 'package:bsccs/screens/pdf_screen/pdf_screen.dart';
 import 'package:bsccs/screens/questions/widget/question_paper_tab_item_widget.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,10 @@ class QuestionTabScreen extends StatelessWidget {
             ListView.builder(
               itemBuilder: (context, index) {
                 return QuestionPaperTabItemWidget(
-                  questionPaper: addWrapperData[index],
-                  onClicked: () {},
+                  questionPapers: addWrapperData[index],
+                  onClicked: (paper) {
+                    PdfScreen.navigate(context, paper.link);
+                  },
                 );
               },
               itemCount: addWrapperData.length,
@@ -50,7 +53,9 @@ class QuestionTabScreen extends StatelessWidget {
               ),
               physics: const BouncingScrollPhysics(),
             ).expanded(flex: 1),
-            const CsBannerAd(adSize: AdSize.largeBanner,).paddingForOnly(bottom: 20)
+            const CsBannerAd(
+              adSize: AdSize.largeBanner,
+            ).paddingForOnly(bottom: 20)
           ],
         );
       },

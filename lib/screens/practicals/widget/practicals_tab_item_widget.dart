@@ -15,7 +15,7 @@ class PracticalsTabItemWidget extends StatelessWidget {
   }) : super(key: key);
 
   final ListWrapper<Practical> practical;
-  final Function onClicked;
+  final Function(Practical) onClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class PracticalsTabItemWidget extends StatelessWidget {
             .mapIndexed(
               (index, e) => PracticalItemWidget(
                 e,
-                onClicked: onPaperClicked,
+                onClicked: onClicked,
               ),
             )
             .toList(),
@@ -51,7 +51,6 @@ class PracticalsTabItemWidget extends StatelessWidget {
     );
   }
 
-  void onPaperClicked(Practical paper) {}
 }
 
 class PracticalItemWidget extends StatelessWidget {
