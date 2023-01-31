@@ -1,5 +1,6 @@
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -14,7 +15,9 @@ class CsBannerAd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AdManagerBannerAd myBanner = AdManagerBannerAd(
-      adUnitId: "ca-app-pub-3940256099942544/6300978111",
+      adUnitId: kReleaseMode
+          ? "ca-app-pub-6290327266704759/6482894125"
+          : "ca-app-pub-3940256099942544/6300978111",
       sizes: [adSize],
       request: const AdManagerAdRequest(),
       listener: AdManagerBannerAdListener(
@@ -79,8 +82,9 @@ class CsInterstitialAd {
   }
 
   void _prepareAdd() {
+
     InterstitialAd.load(
-      adUnitId: "ca-app-pub-3940256099942544/1033173712",
+      adUnitId: kReleaseMode?"ca-app-pub-6290327266704759/6855263366":"ca-app-pub-3940256099942544/1033173712",
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {

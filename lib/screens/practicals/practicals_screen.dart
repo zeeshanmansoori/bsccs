@@ -13,6 +13,10 @@ class PracticalsScreen extends StatelessWidget {
 
   const PracticalsScreen({Key? key}) : super(key: key);
 
+  static void navigate(BuildContext context, GlobalArguments argument) {
+    Navigator.pushNamed(context, routeName, arguments: argument);
+  }
+
   @override
   Widget build(BuildContext context) {
     var arguments =

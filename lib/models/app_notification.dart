@@ -87,6 +87,9 @@ class AppNotification {
 }
 
 enum AppNotificationType {
+  books,
+  questionPapers,
+  practicals,
   course,
   non;
 

@@ -101,4 +101,8 @@ class AuthGateCubit extends Cubit<AuthGateState> {
     FirebaseAuth.instance.signOut();
     GoogleSignIn().signOut();
   }
+
+  int getDefaultSem() {
+    return _csRepository.defaultSem ?? 1;
+  }
 }

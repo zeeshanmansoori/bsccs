@@ -21,9 +21,8 @@ class EmptyStateWidget extends StatelessWidget {
             fontSize: 16,
           ),
         ).paddingForAll(20),
-        CsBannerAd.resizableAdBox()
-            .paddingWithSymmetry(horizontal: 20)
-            .expanded(flex: 1),
+        const Spacer(),
+        const CsBannerAd().paddingWithSymmetry(horizontal: 20)
       ],
     );
   }

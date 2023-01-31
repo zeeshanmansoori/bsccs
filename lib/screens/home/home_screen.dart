@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                         context,
                         title: "Logout",
                         description: "Are you sure you want to logout?",
-                        onConfirmClicked: () async {
+                        onConfirmClicked: () {
                           authCubit.logOut();
                           Navigator.pop(context);
                         },
@@ -113,22 +113,20 @@ class HomeScreen extends StatelessWidget {
                       .map(
                         (action) => HomeActionWidget(
                           homeAction: action,
-                          onClicked: () async => Navigator.pushNamed(
-                            context,
-                            action.destinationName,
-                            arguments: GlobalArguments(
-                              courseName: context
-                                  .read<AuthGateCubit>()
-                                  .state
-                                  .courseName!,
-                              semesterCount: context
-                                  .read<AuthGateCubit>()
-                                  .state
-                                  .semesters!,
-                              defaultSemester:
-                                  (await cubit.getDefaultSem()) ?? 1,
-                            ),
-                          ),
+                          onClicked: () async {
+                            var authCubit = context.read<AuthGateCubit>();
+                            Navigator.pushNamed(
+                              context,
+                              action.destinationName,
+                              arguments: GlobalArguments(
+                                courseName: authCubit.state
+                                    .courseName!,
+                                semesterCount: authCubit.state
+                                    .semesters!,
+                                defaultSemester: authCubit.getDefaultSem(),
+                              ),
+                            );
+                          },
                         ),
                       )
                       .toList(),
@@ -173,10 +171,12 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (ctx, index) {
                         var item = notifications[index];
                         if (item is AddWrapperData<AppNotification>) {
-                          return NotificationWidget(notification: item.item)
-                              .paddingWithSymmetry(horizontal: 15);
+                          return NotificationWidget(
+                            notification: item.item,
+                          ).paddingWithSymmetry(horizontal: 15);
                         }
-                        return const CsBannerAd().paddingWithSymmetry(horizontal: 15);
+                        return const CsBannerAd()
+                            .paddingWithSymmetry(horizontal: 15);
                       },
                       itemCount: size,
                     );

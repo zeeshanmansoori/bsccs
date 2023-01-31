@@ -127,8 +127,4 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
   }
-
-  Future<int?> getDefaultSem() {
-    return _csRepository.getDefaultSemester();
-  }
 }

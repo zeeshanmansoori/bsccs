@@ -13,9 +13,18 @@ class CsRepository {
   final String _syllabusDocName = "syllabus";
   final defaultOption = const GetOptions(source: Source.serverAndCache);
   GetOptions _getOptions = const GetOptions(source: Source.serverAndCache);
+  int? defaultSem;
   String? _userId;
 
   String get userId => _userId!;
+
+  CsRepository() {
+    _init();
+  }
+
+  void _init() async {
+    defaultSem = await CsSharedPreferences.getMySem();
+  }
 
   void saveUserInfo(
     String userId,
@@ -169,11 +178,13 @@ class CsRepository {
   }
 
   void saveSelectedSemester(int sem) {
+    defaultSem = sem;
     CsSharedPreferences.saveMySem(sem);
   }
 
-  Future<int?> getDefaultSemester() {
-    return CsSharedPreferences.getMySem();
+  Future<int?> getDefaultSemester() async {
+    defaultSem = await CsSharedPreferences.getMySem();
+    return defaultSem;
   }
 
   void setOfflineMode(bool value) {

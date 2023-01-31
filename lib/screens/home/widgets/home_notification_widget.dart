@@ -1,10 +1,17 @@
+import 'package:bsccs/cubit/auth_gate/auth_gate_cubit.dart';
+import 'package:bsccs/cubit/home/home_cubit.dart';
 import 'package:bsccs/models/app_notification.dart';
+import 'package:bsccs/models/global_arguments.dart';
+import 'package:bsccs/screens/books/books_screen.dart';
 import 'package:bsccs/screens/free_courses/free_courses_screen.dart';
+import 'package:bsccs/screens/practicals/practicals_screen.dart';
+import 'package:bsccs/screens/questions/questions_screen.dart';
 import 'package:bsccs/utils/constants.dart';
 import 'package:bsccs/utils/custom_colors.dart';
 import 'package:bsccs/utils/extension/widget_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotificationWidget extends StatelessWidget {
   const NotificationWidget({
@@ -16,6 +23,7 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cardBorderRadius = BorderRadius.circular(Constants.cardRadius);
+    var cubit = context.read<AuthGateCubit>();
     return Card(
       color: CustomColors.actionColor,
       elevation: .1,
@@ -73,8 +81,26 @@ class NotificationWidget extends StatelessWidget {
           )
           .asButton(
             onTap: () {
-              if (notification.type == AppNotificationType.course) {
-                Navigator.pushNamed(context, FreeCoursesScreen.routeName);
+              var argument = GlobalArguments(
+                courseName: cubit.state.courseName!,
+                semesterCount: cubit.state.semesters!,
+                defaultSemester: cubit.getDefaultSem(),
+              );
+              switch (notification.type) {
+                case AppNotificationType.course:
+                  Navigator.pushNamed(context, FreeCoursesScreen.routeName);
+                  break;
+                case AppNotificationType.books:
+                  BooksScreen.navigate(context, argument);
+                  break;
+                case AppNotificationType.practicals:
+                  PracticalsScreen.navigate(context, argument);
+                  break;
+                case AppNotificationType.questionPapers:
+                  QuestionsScreen.navigate(context, argument);
+                  break;
+                default:
+                  break;
               }
             },
             borderRadius: cardBorderRadius,

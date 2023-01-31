@@ -15,6 +15,14 @@ class BooksScreen extends StatefulWidget {
 
   @override
   State<BooksScreen> createState() => _BooksScreenState();
+
+  static void navigate(BuildContext context, GlobalArguments globalArguments) {
+    Navigator.pushNamed(
+      context,
+      routeName,
+      arguments: globalArguments,
+    );
+  }
 }
 
 class _BooksScreenState extends State<BooksScreen> {

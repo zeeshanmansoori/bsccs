@@ -35,7 +35,7 @@ class AllNotificationScreen extends StatelessWidget {
                 if (notif is AddWrapperData<AppNotification>) {
                   return NotificationWidget(notification: notif.item);
                 }
-                return CsBannerAd();
+                return const CsBannerAd();
               },
               itemCount: notifications.length,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
