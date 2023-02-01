@@ -96,7 +96,7 @@ class NotificationWidget extends StatelessWidget {
                 case AppNotificationType.practicals:
                   PracticalsScreen.navigate(context, argument);
                   break;
-                case AppNotificationType.questionPapers:
+                case AppNotificationType.question_papers:
                   QuestionsScreen.navigate(context, argument);
                   break;
                 default:

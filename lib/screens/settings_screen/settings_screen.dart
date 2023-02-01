@@ -7,6 +7,7 @@ import 'package:cs_repository/cs_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../custom_widgets/cs_material_button.dart';
 
@@ -27,11 +28,6 @@ class SettingsScreen extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SemesterDropDown<SettingsCubit, SettingsState>(
-              onChanged: (cubit, value) => cubit.onSemesterChanged(value),
-              getSemCount: arguments.semesterCount,
-              getSelectedValue: (state) => state.selectedSemester,
-            ).paddingWithSymmetry(vertical: 10),
             ListTile(
               title: const Text(
                 "Premium Features",
@@ -45,6 +41,13 @@ class SettingsScreen extends StatelessWidget {
                 width: 25,
                 height: 25,
               ).paddingForOnly(right: 15),
+            ).paddingForOnly(top: 10),
+            const Divider(),
+            SemesterDropDown<SettingsCubit, SettingsState>(
+              onChanged: (cubit, value) => cubit.onSemesterChanged(value),
+              getSemCount: arguments.semesterCount,
+              getSelectedValue: (state) => state.selectedSemester,
+              underLine: false,
             ),
             BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, state) {
@@ -59,7 +62,53 @@ class SettingsScreen extends StatelessWidget {
                         : "Offline mode disabled";
                     WidgetUtils.showSnackBar(context, msg);
                   },
-                  title: const Text("Offline mode"),
+                  title: const Text(
+                    "Offline mode",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const ListTile(
+              title: Text(
+                "Others",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                ),
+              ),
+            ).paddingForOnly(top: 10),
+            const Divider(),
+            ListTile(
+              title: const Text(
+                "Help and Support",
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                ),
+              ),
+              onTap: () {
+                launchUrl(
+                  Uri.parse("https://forms.gle/GDwvsDRAEWDqsguN8"),
+                  mode: LaunchMode.externalApplication,
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(
+                "Want to Contribute?",
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                ),
+              ),
+              onTap: () {
+                launchUrl(
+                  Uri.parse("https://forms.gle/w6Cxr2qKgqwqfwwv5"),
+                  mode: LaunchMode.externalApplication,
                 );
               },
             ),
