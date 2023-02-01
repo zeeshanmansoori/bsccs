@@ -31,14 +31,13 @@ class AuthScreen extends StatelessWidget {
         },
         child: Column(
           children: [
-            const Spacer(),
-            Lottie.asset(
-              Utils.getLottiePath("books"),
-              fit: BoxFit.fitWidth,
-            ),
-            const Spacer(
-              flex: 2,
-            ),
+            Container(
+              alignment: Alignment.center,
+              child: Lottie.asset(
+                Utils.getLottiePath("books"),
+                fit: BoxFit.fitWidth,
+              ),
+            ).expanded(flex: 1),
             CsMaterialButton<AuthGateCubit, AuthGateState>(
               buttonColor: Colors.white,
               buttonRadius: 15,
@@ -74,10 +73,7 @@ class AuthScreen extends StatelessWidget {
                   ],
                 ).paddingWithSymmetry(vertical: 16),
               ),
-            ).paddingWithSymmetry(horizontal: 30),
-            const Spacer(
-              flex: 2,
-            ),
+            ).paddingWithSymmetry(horizontal: 30, vertical: 60),
           ],
         ),
       ).withCenterProgressBar<AuthGateCubit, AuthGateState>(
