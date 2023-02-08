@@ -2,13 +2,19 @@
 
 App for Bsc CS students.
 
-## ⚠️⚠️⚠️ Work in progress ⚠️⚠️⚠️
-
-
 ## Features
+1. View/Download Pdf content within app.
+2. Offline support
+3. semester selection
+4. Free Courses
 
 ## Libraries
-1. Firebase
+1. Database 
+  a. Firebase
+  b. Google Drive
+2. StateManagement => Bloc/Cubit  
+3. Firebase Cloud Messaging => Push Notification
+
 
 ## Result
 
