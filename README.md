@@ -6,8 +6,9 @@ App for Bsc CS students.
 1. View/Download Pdf content within app.
 2. Offline support
 3. semester selection
-4. Free Courses
-5. Custom SplashScreen
+4. View/Download Books,Question Papers, Syllabus and Practicals
+5. Write/Save your own notes.
+6. Contribution option
 
 ## Libraries
 1. Database 
