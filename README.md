@@ -13,7 +13,7 @@ App for Bsc CS students.
   a. Firebase
   b. Google Drive
 2. StateManagement => Bloc/Cubit  
-3. Firebase Cloud Messaging => Push Notification
+3. Push Notification => Firebase Cloud Messaging
 
 
 ## Result
