@@ -7,6 +7,7 @@ App for Bsc CS students.
 2. Offline support
 3. semester selection
 4. Free Courses
+5. Custom SplashScreen
 
 ## Libraries
 1. Database 
@@ -14,6 +15,11 @@ App for Bsc CS students.
   b. Google Drive
 2. StateManagement => Bloc/Cubit  
 3. Push Notification => Firebase Cloud Messaging
+4. Ads => Google Mobile ads
+5. flutter_native_splash
+6. localstorage
+7. firebase_messaging
+
 
 
 ## Result
