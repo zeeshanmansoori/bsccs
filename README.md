@@ -8,7 +8,8 @@ App for Bsc CS students.
 3. semester selection
 4. View/Download Books,Question Papers, Syllabus and Practicals
 5. Write/Save your own notes.
-6. Contribution option
+6. Free Courses
+7. Contribution option
 
 ## Libraries
 1. Database 
